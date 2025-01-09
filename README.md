@@ -1,0 +1,1 @@
+This Repository is consisted of the DSA using Java  with all the necessry question of leetcode , GFG , and Coding Ninjas . I am currently working on it as i am also learning all thr contents is easily understandable .
