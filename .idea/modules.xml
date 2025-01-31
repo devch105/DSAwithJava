@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AlphaDSA/AlphaDSA.iml" filepath="$PROJECT_DIR$/AlphaDSA/AlphaDSA.iml" />
       <module fileurl="file://$PROJECT_DIR$/DurgaSoftDSA/DurgaSoftDSA.iml" filepath="$PROJECT_DIR$/DurgaSoftDSA/DurgaSoftDSA.iml" />
       <module fileurl="file://$PROJECT_DIR$/Grind169/Grind169.iml" filepath="$PROJECT_DIR$/Grind169/Grind169.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Java+DSA.iml" filepath="$PROJECT_DIR$/.idea/Java+DSA.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Propeers/Propeers.iml" filepath="$PROJECT_DIR$/Propeers/Propeers.iml" />
       <module fileurl="file://$PROJECT_DIR$/SashCoding/SashCoding.iml" filepath="$PROJECT_DIR$/SashCoding/SashCoding.iml" />
     </modules>
   </component>
