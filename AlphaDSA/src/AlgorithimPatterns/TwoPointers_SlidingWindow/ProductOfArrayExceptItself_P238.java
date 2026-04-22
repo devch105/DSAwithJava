@@ -1,9 +1,8 @@
 package AlgorithimPatterns.TwoPointers_SlidingWindow;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-public class ProductOfArrayExceptItself {
+public class ProductOfArrayExceptItself_P238 {
     static void main() {
      int arr[]={3,4,6,1,2};
      productOfArrayExceptItself(arr);
