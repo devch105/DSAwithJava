@@ -24,6 +24,7 @@ public class FourSum_P18 {
         }
         return result;
     }
+    /*Inner function for calculate 2 sum */
     public  static List<List<Integer>> twoSum(int[] nums, int target,int i, int j, int left, int right) {
         List<List<Integer>> result = new ArrayList<>();
 
