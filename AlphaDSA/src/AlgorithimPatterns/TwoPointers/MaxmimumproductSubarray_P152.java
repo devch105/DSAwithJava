@@ -1,6 +1,4 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
-
-import java.util.Arrays;
+package AlgorithimPatterns.TwoPointers;
 
 public class MaxmimumproductSubarray_P152 {
     static void main() {

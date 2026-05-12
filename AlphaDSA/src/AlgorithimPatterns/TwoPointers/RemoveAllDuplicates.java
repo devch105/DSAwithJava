@@ -1,7 +1,6 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
+package AlgorithimPatterns.TwoPointers;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class RemoveAllDuplicates {
     public static void main(String[] args) {

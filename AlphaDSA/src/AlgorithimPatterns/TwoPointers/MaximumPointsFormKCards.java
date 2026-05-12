@@ -1,4 +1,4 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
+package AlgorithimPatterns.TwoPointers;
 
 public class MaximumPointsFormKCards {
     public static void main (String[] args) throws java.lang.Exception

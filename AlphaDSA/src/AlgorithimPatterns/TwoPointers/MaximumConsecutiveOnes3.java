@@ -1,4 +1,4 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
+package AlgorithimPatterns.TwoPointers;
 
 public class MaximumConsecutiveOnes3 {
     public static void main(String[] args) {

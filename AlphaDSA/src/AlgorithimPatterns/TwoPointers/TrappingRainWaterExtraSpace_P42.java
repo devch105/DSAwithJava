@@ -1,4 +1,4 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
+package AlgorithimPatterns.TwoPointers;
 
 public class TrappingRainWaterExtraSpace_P42 {
     static void main() {

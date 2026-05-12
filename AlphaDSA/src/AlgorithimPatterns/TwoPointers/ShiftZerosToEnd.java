@@ -1,4 +1,4 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
+package AlgorithimPatterns.TwoPointers;
 
 import java.util.Arrays;
 import java.util.Scanner;

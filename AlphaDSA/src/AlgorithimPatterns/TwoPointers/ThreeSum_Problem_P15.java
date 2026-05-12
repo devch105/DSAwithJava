@@ -1,14 +1,14 @@
-package AlgorithimPatterns.TwoPointers_SlidingWindow;
+package AlgorithimPatterns.TwoPointers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static AlgorithimPatterns.TwoPointers_SlidingWindow.TwoSum.twoSum;
+
 
 public class ThreeSum_Problem_P15 {
     static void main() {
-        int arr [] ={ -1,0,1,2,-1,-4};
+        int arr [] ={ 0,0,0};
 
         System.out.println(threeSum(arr));
 
