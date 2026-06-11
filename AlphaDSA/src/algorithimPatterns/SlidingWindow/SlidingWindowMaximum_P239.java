@@ -3,14 +3,37 @@ package algorithimPatterns.SlidingWindow;
 import java.util.*;
 
 public class SlidingWindowMaximum_P239 {
-    static void main() {
+
+   public static void main( String args[]) {
 
         int [] nums = {1,3,-1,-3,5,3,6,7};
         int k = 3;
        // Output: [3,3,5,5,6,7]
-        System.out.println("Answer : "+Arrays.toString(maxSlidingWindow(nums,k)));
 
+       Deque<Integer> dq= new ArrayDeque<>();
 
+       // add first 
+       dq.addFirst(20);
+       dq.addFirst(10);
+       System.out.println(dq);
+       // add last
+       dq.addLast(30);
+       dq.addLast(40);
+       System.out.println(dq);
+       // add at front and return true/false
+       System.out.println("offer first : "+dq.offerFirst(5)+" update dq : "+dq);
+       System.out.println("Offer Last : "+dq.offerLast(50)+" update dq : "+dq);
+
+       System.out.println("remove first : "+dq.removeFirst());   // does not handle empty
+       System.out.println("remove last : "+dq.removeLast());    // does not handle empty
+
+       System.out.println("Poll First : "+dq.pollFirst());
+       System.out.println("Poll Last : "+dq.pollLast());
+
+       System.out.println("Peek First : "+dq.peekFirst());
+       System.out.println("Peek Last : "+dq.peekLast());
+
+      //  System.out.println("Answer : "+Arrays.toString(maxSlidingWindow(nums,k)));
     }
 
     public static int[] maxSlidingWindow(int[] nums, int k) {
