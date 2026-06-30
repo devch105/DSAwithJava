@@ -33,7 +33,7 @@ public class SlidingWindowMaximum_P239 {
        System.out.println("Peek First : "+dq.peekFirst());
        System.out.println("Peek Last : "+dq.peekLast());
 
-      //  System.out.println("Answer : "+Arrays.toString(maxSlidingWindow(nums,k)));
+        System.out.println("Answer : "+Arrays.toString(maxSlidingWindow(nums,k)));
     }
 
     public static int[] maxSlidingWindow(int[] nums, int k) {
@@ -54,7 +54,7 @@ public class SlidingWindowMaximum_P239 {
 
             // Remove smaller element from back
 
-            while(!deque.isEmpty() && nums[deque.peekLast()]<=nums[i]){
+            while(!deque.isEmpty() && nums[deque.peekLast()]<=nums[i]){ 
                 deque.pollLast();
             }
 
