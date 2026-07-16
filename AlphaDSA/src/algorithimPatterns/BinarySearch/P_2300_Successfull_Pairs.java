@@ -8,6 +8,7 @@ public class P_2300_Successfull_Pairs {
         int[] nums2 = { 2, 6, 5 };
         long success = 7;
         System.out.println(Arrays.toString(successfulPairs(nums1, nums2, success)));
+
     }
 
     public static int[] successfulPairs(int[] spells, int[] potions, long success) {
