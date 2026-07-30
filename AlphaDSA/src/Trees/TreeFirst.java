@@ -67,7 +67,7 @@ public class TreeFirst {
             q.add(root);
             q.add(null);
 
-            while (!q.isEmpty()) {   // ✅ fixed condition
+            while (!q.isEmpty()) { // ✅ fixed condition
                 Node curr = q.remove();
                 if (curr == null) {
                     System.out.println();
@@ -88,21 +88,92 @@ public class TreeFirst {
             }
         }
 
-        public static int HeightOfTree(Node root){
-             if(root==null){
-                 return 0;
-             }
-             int leftheight=HeightOfTree(root.left);
-             int rightheight=HeightOfTree(root.right);
+        public static int HeightOfTree(Node root) {
+           if(root == null){
+            return 0;
+           }
+           int leftHeight = HeightOfTree(root.left);
+           int rightHeight = HeightOfTree(root.right);
 
-             int root_height=Math.max(leftheight,rightheight)+1;
-       return root_height;
+           int rootHeight = Math.max(leftHeight, rightHeight) +1;
+
+           return rootHeight;  
+        }
+
+
+        public static int countNodes(Node root){
+            if(root==null){
+                return 0;
+            }
+
+            int leftCount = countNodes(root.left);
+            int rightCount = countNodes(root.right);
+
+            int totalCounts = leftCount+rightCount+1;
+            return totalCounts;
+        }
+
+
+        public static int SumOfNodes(Node root){
+            if(root==null){
+                return 0;
+            }
+
+            int leftSum = SumOfNodes(root.left);
+            int rightSum = SumOfNodes(root.right);
+
+            int totalSum = leftSum+rightSum+root.data;
+
+            return totalSum;
+        }
+
+
+        public static int DiameterO2(Node root){
+            if(root==null){
+                return 0;
+            }
+
+            int leftDiam = DiameterO2(root.left);
+            int leftHeight = HeightOfTree(root.left);
+            int rightDiam = DiameterO2(root.right);
+            int rightHeight = HeightOfTree(root.right);
+
+            int selfDiam = leftHeight+rightHeight+1;
+
+            return Math.max(Math.max(rightDiam,leftDiam), selfDiam);
+        }
+
+
+        static class Info{
+            int diam;
+            int height;
+
+            public Info(int diam , int height){
+                this.diam=diam;
+                this.height=height;
+            }
+        }
+
+
+
+        public static Info diameterOfTree(Node root){
+            if(root==null){
+                return new Info(0, 0);
+            }
+
+             Info leftInfo = diameterOfTree(root.left);
+             Info rightInfo = diameterOfTree(root.right);
+
+             int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.height+rightInfo.height+1);
+             int height = Math.max(leftInfo.height, rightInfo.height)+1;
+
+             return new Info(diam, height);
         }
 
     }
 
     public static void main(String[] args) {
-        int nodes[] = { 1, 2, 4, 100, -1, 5, -1, 90, 3, -1, 6, 80, -1 };
+        int nodes[] = {1,2,4,7,-1,-1,8,-1,-1,5,-1,-1,3,-1,6,-1,9,-1,-1};
 
         BinaryTree Btree = new BinaryTree();
         Node root = Btree.BuildTree(nodes);
@@ -123,7 +194,14 @@ public class TreeFirst {
         Btree.Levelorder(root);
         System.out.println("\n--------------------------");
 
-        System.out.println("Height Of Tree : "+ Btree.HeightOfTree(root));
+        System.out.println("Height Of Tree : " + Btree.HeightOfTree(root));
 
+
+        System.out.println("Count of Nodes in Tree : "+Btree.countNodes(root));
+    
+        System.out.println("Sum of Nodes : "+Btree.SumOfNodes(root));
+
+        System.out.println("Diameter of Tree : "+Btree.DiameterO2(root));
+        System.out.println("Infomation about Diameter : "+Btree.diameterOfTree(root).diam);
     }
 }
