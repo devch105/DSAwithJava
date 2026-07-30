@@ -1,5 +1,6 @@
 package Trees;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -191,10 +192,158 @@ public class TreeFirst {
             return isSubTree(root.left, subRoot) || isSubTree(root.right, subRoot);
         }
 
+        static class Struct {
+            Node root;
+            int hd;
+
+            public Struct(Node root, int hd) {
+                this.hd = hd;
+                this.root = root;
+            }
+        }
+
+        public void topViewOfTree(Node root) {
+            if (root == null) {
+                return;
+            }
+            HashMap<Integer, Node> map = new HashMap<>();
+            Queue<Struct> q = new LinkedList<>();
+            int min = 0, max = 0;
+            q.add(new Struct(root, 0));
+            q.add(null);
+
+            while (!q.isEmpty()) {
+                Struct curr = q.remove();
+                if (curr == null || curr.root == null) {
+                    if (q.isEmpty()) {
+                        break;
+                    } else {
+                        q.add(null);
+                    }
+                } else {
+                    if (!map.containsKey(curr.hd)) {
+                        map.put(curr.hd, curr.root);
+                    }
+
+                    if (curr.root.left != null) {
+                        q.add(new Struct(curr.root.left, curr.hd - 1));
+                        min = Math.min(min, curr.hd - 1);
+                    }
+                    if (curr.root.right != null) {
+                        q.add(new Struct(curr.root.right, curr.hd + 1));
+                        max = Math.max(max, curr.hd + 1);
+                    }
+                }
+
+            }
+
+            for (int i = min; i <= max; i++) {
+
+                System.out.print(map.get(i).data + " ");
+            }
+            System.out.println();
+        }
+
+        public void kthLevelOfTree(Node root, int level, int k) {
+            if (root == null) {
+                return;
+            }
+            if (level == k) {
+                System.out.print(root.data + " ");
+            }
+
+            kthLevelOfTree(root.left, level + 1, k);
+            kthLevelOfTree(root.right, level + 1, k);
+        }
+
+        public Node lowestCommonAncestor(Node root, int n1, int n2) {
+            if (root == null || root.data == n1 || root.data == n2) {
+                return root;
+            }
+            Node leftLca = lowestCommonAncestor(root.left, n1, n2);
+            Node rightLca = lowestCommonAncestor(root.right, n1, n2);
+
+            if (rightLca == null) {
+                return leftLca;
+            }
+            if (leftLca == null) {
+                return rightLca;
+            }
+
+            return root;
+
+        }
+
+        public int MinDistanceBetweenNodes(Node root, int n1, int n2) {
+            // d1 = lca -> n1 d2 = lca -> n2
+            Node lca = lowestCommonAncestor(root, n1, n2);
+            int d1 = localDist(lca, n1);
+            int d2 = localDist(lca, n2);
+            return d1 + d2;
+        }
+
+        // helper function
+        public int localDist(Node root, int n1) {
+            if (root == null) {
+                return -1;
+            }
+
+            if (root.data == n1) {
+                return 0;
+            }
+
+            int leftDist = localDist(root.left, n1);
+            int rightDist = localDist(root.right, n1);
+
+            if (leftDist == -1 && rightDist == -1) {
+                return -1;
+            } else if (leftDist == -1) {
+                return rightDist + 1;
+            } else {
+                return leftDist + 1;
+            }
+        }
+
+        public int KthAncestorofNode(Node root, int n1, int k) {
+            if (root == null) {
+                return -1;
+            }
+            if (root.data == n1) {
+                return 0;
+            }
+
+            int leftDist = KthAncestorofNode(root.left, n1, k);
+            int rightDist = KthAncestorofNode(root.right, n1, k);
+
+            if (leftDist == -1 && rightDist == -1) {
+                return -1;
+            }
+
+            int max = Math.max(leftDist, rightDist) + 1;
+            if (max == k) {
+                System.out.println("Data : " + root.data);
+            }
+            return max;
+        }
+
+        public int transformSumOfTree(Node root) {
+            if (root == null) {
+                return 0;
+            }
+
+            int leftSum = transformSumOfTree(root.left);
+            int rightSum = transformSumOfTree(root.right);
+
+
+            int temp = root.data;
+            root.data = leftSum + rightSum;
+            return leftSum + rightSum + temp;
+        }
+
     }
 
     public static void main(String[] args) {
-        int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
+        int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1,7,-1,-1 };
 
         BinaryTree Btree = new BinaryTree();
         Node root = Btree.BuildTree(nodes);
@@ -202,12 +351,21 @@ public class TreeFirst {
         System.out.println("Preorder:");
         Btree.preOrder(root);
 
-        Btree.indx = -1;
-        int nodesB[] = { 2, 4, -1, -1, 5, -1, -1 };
-        Node subRoot = Btree.BuildTree(nodesB);
-        System.out.println("\nPreorder:");
-        Btree.preOrder(subRoot);
+        System.out.println("\n Kth level of Tree");
+        Btree.kthLevelOfTree(root, 1, 2);
 
-        System.out.println("\nIs Tree B SubTree of A : " + Btree.isSubTree(root, subRoot));
+        System.out.println("\n lowest common ancestor : " + Btree.lowestCommonAncestor(root, 4, 6).data);
+        System.out.println("\n Minimum Distance between Nodes : " + Btree.MinDistanceBetweenNodes(root, 4, 6));
+
+        System.out.println("Kth ancestor of Node : " + Btree.KthAncestorofNode(root, 6, 2));
+
+        System.out.println("\n Traverse  \n");
+        Btree.Levelorder(root);
+
+        System.out.println("Transform sum of Tree : " + Btree.transformSumOfTree(root));
+
+        System.out.println("\n Traverse  \n");
+        Btree.Levelorder(root);
+
     }
 }
