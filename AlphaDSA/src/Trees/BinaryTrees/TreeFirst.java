@@ -354,15 +354,48 @@ public class TreeFirst {
         }
 
         public Node build(int[] preOrder, int left, int right) {
-           if(left>right){
-            return null;
-           }
+            if (left > right) {
+                return null;
+            }
             Node root = new Node(preOrder[preIndex]);
             preIndex++;
             int pos = map.get(root.data);
 
             root.left = build(preOrder, left, pos - 1);
             root.right = build(preOrder, pos + 1, right);
+
+            return root;
+
+        }
+
+
+
+        HashMap<Integer, Integer> postmap = new HashMap<>();
+        int postIndex;
+        public Node buildNodeFromPostOrderAndInOrder(int postOrder[], int inOrder[]) {
+            for (int i = 0; i < inOrder.length; i++) {
+                postmap.put(inOrder[i], i);
+            }
+
+            postIndex = postOrder.length - 1;
+
+            Node root = postbuild(postOrder, 0, postOrder.length - 1);
+
+            return root;
+
+        }
+
+        public Node postbuild(int[] postOrder, int left, int right) {
+            if (left > right) {
+                return null;
+            }
+            Node root = new Node(postOrder[postIndex]);
+            postIndex--;
+            int pos = postmap.get(root.data);
+
+
+            root.right = postbuild(postOrder, pos + 1, right);
+            root.left = postbuild(postOrder, left, pos - 1);
 
             return root;
 
@@ -395,12 +428,20 @@ public class TreeFirst {
         System.out.println("\n Traverse  \n");
         Btree.Levelorder(root);
 
-        int[] preorder = { 3, 9, 20, 15, 7 }, inorder = { 9, 3, 15, 20, 7 };
+        int[] preorder = { 3, 9, 20, 15, 7 }, inorder = { 9, 3, 15, 20, 7 }, postorder = {9,15,7,20,3};
+
 
         Node newRoot = Btree.buildNodeFromPreOrderAndInOrder(preorder, inorder);
 
         System.out.println("\n Traverse  \n");
         Btree.Levelorder(newRoot);
+
+        System.out.println(" \n Post and Inorder Tree formation \n");
+
+        Node postRoot = Btree.buildNodeFromPostOrderAndInOrder(postorder, inorder);
+
+        System.out.println("\n Traverse  \n");
+        Btree.Levelorder(postRoot);
 
     }
 }
