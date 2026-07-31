@@ -334,16 +334,44 @@ public class TreeFirst {
             int leftSum = transformSumOfTree(root.left);
             int rightSum = transformSumOfTree(root.right);
 
-
             int temp = root.data;
             root.data = leftSum + rightSum;
             return leftSum + rightSum + temp;
         }
 
+        int preIndex = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        public Node buildNodeFromPreOrderAndInOrder(int preOrder[], int inOrder[]) {
+            for (int i = 0; i < inOrder.length; i++) {
+                map.put(inOrder[i], i);
+            }
+
+            Node root = build(preOrder, 0, preOrder.length - 1);
+
+            return root;
+
+        }
+
+        public Node build(int[] preOrder, int left, int right) {
+           if(left>right){
+            return null;
+           }
+            Node root = new Node(preOrder[preIndex]);
+            preIndex++;
+            int pos = map.get(root.data);
+
+            root.left = build(preOrder, left, pos - 1);
+            root.right = build(preOrder, pos + 1, right);
+
+            return root;
+
+        }
+
     }
 
     public static void main(String[] args) {
-        int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1,7,-1,-1 };
+        int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1, 7, -1, -1 };
 
         BinaryTree Btree = new BinaryTree();
         Node root = Btree.BuildTree(nodes);
@@ -366,6 +394,13 @@ public class TreeFirst {
 
         System.out.println("\n Traverse  \n");
         Btree.Levelorder(root);
+
+        int[] preorder = { 3, 9, 20, 15, 7 }, inorder = { 9, 3, 15, 20, 7 };
+
+        Node newRoot = Btree.buildNodeFromPreOrderAndInOrder(preorder, inorder);
+
+        System.out.println("\n Traverse  \n");
+        Btree.Levelorder(newRoot);
 
     }
 }
