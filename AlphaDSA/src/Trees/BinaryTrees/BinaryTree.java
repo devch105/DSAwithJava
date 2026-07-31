@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class TreeFirst {
+public class BinaryTree {
     static class Node {
         int data;
         Node left;
@@ -17,7 +17,7 @@ public class TreeFirst {
         }
     }
 
-    static class BinaryTree {
+    
         static int indx = -1;
 
         public static Node BuildTree(int nodes[]) {
@@ -392,16 +392,11 @@ public class TreeFirst {
             Node root = new Node(postOrder[postIndex]);
             postIndex--;
             int pos = postmap.get(root.data);
-
-
             root.right = postbuild(postOrder, pos + 1, right);
             root.left = postbuild(postOrder, left, pos - 1);
-
             return root;
-
         }
-
-    }
+    
 
     public static void main(String[] args) {
         int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1, 7, -1, -1 };
@@ -415,33 +410,38 @@ public class TreeFirst {
         System.out.println("\n Kth level of Tree");
         Btree.kthLevelOfTree(root, 1, 2);
 
-        System.out.println("\n lowest common ancestor : " + Btree.lowestCommonAncestor(root, 4, 6).data);
-        System.out.println("\n Minimum Distance between Nodes : " + Btree.MinDistanceBetweenNodes(root, 4, 6));
+        // System.out.println("\n lowest common ancestor : " + Btree.lowestCommonAncestor(root, 4, 6).data);
+        // System.out.println("\n Minimum Distance between Nodes : " + Btree.MinDistanceBetweenNodes(root, 4, 6));
 
-        System.out.println("Kth ancestor of Node : " + Btree.KthAncestorofNode(root, 6, 2));
+        // System.out.println("Kth ancestor of Node : " + Btree.KthAncestorofNode(root, 6, 2));
 
-        System.out.println("\n Traverse  \n");
+        // System.out.println("\n Traverse  \n");
+        // Btree.Levelorder(root);
+
+        // System.out.println("Transform sum of Tree : " + Btree.transformSumOfTree(root));
+
+        // System.out.println("\n Traverse  \n");
+        // Btree.Levelorder(root);
+
+        // int[] preorder = { 3, 9, 20, 15, 7 }, inorder = { 9, 3, 15, 20, 7 }, postorder = {9,15,7,20,3};
+
+
+        // Node newRoot = Btree.buildNodeFromPreOrderAndInOrder(preorder, inorder);
+
+        // System.out.println("\n Traverse  \n");
+        // Btree.Levelorder(newRoot);
+
+        // System.out.println(" \n Post and Inorder Tree formation \n");
+
+        // Node postRoot = Btree.buildNodeFromPostOrderAndInOrder(postorder, inorder);
+
+        // System.out.println("\n Traverse  \n");
+        // Btree.Levelorder(postRoot);
+
+
+        System.out.println("\n Level Order Traversal \n");
         Btree.Levelorder(root);
 
-        System.out.println("Transform sum of Tree : " + Btree.transformSumOfTree(root));
-
-        System.out.println("\n Traverse  \n");
-        Btree.Levelorder(root);
-
-        int[] preorder = { 3, 9, 20, 15, 7 }, inorder = { 9, 3, 15, 20, 7 }, postorder = {9,15,7,20,3};
-
-
-        Node newRoot = Btree.buildNodeFromPreOrderAndInOrder(preorder, inorder);
-
-        System.out.println("\n Traverse  \n");
-        Btree.Levelorder(newRoot);
-
-        System.out.println(" \n Post and Inorder Tree formation \n");
-
-        Node postRoot = Btree.buildNodeFromPostOrderAndInOrder(postorder, inorder);
-
-        System.out.println("\n Traverse  \n");
-        Btree.Levelorder(postRoot);
 
     }
 }
