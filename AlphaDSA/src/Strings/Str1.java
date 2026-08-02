@@ -10,5 +10,7 @@ public class Str1 {
         StringBuffer sb=new StringBuffer("Dev");
         sb.append("Dhama");
         System.out.println(sb);
+
+        // 
     }
 }

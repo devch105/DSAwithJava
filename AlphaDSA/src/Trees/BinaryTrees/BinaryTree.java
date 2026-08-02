@@ -398,93 +398,104 @@ public class BinaryTree {
         return root;
     }
 
-
     public static List<List<Integer>> ZigzagLevelorder(Node root) {
-        if(root == null){
+        if (root == null) {
             return null;
         }
-      
+
         Queue<Node> q = new LinkedList<>();
         List<List<Integer>> level = new ArrayList<>();
 
         q.add(root);
         boolean leftToRight = true;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int size = q.size();
             List<Integer> ans = new ArrayList<>();
 
-            for(int i=0; i<size; i++){
+            for (int i = 0; i < size; i++) {
                 Node curr = q.remove();
 
                 ans.add(curr.data);
 
-                if(curr.left!=null){
+                if (curr.left != null) {
                     q.add(curr.left);
                 }
-                if(curr.right!=null){
+                if (curr.right != null) {
                     q.add(curr.right);
                 }
             }
 
-            if(!leftToRight){
+            if (!leftToRight) {
                 Collections.reverse(ans);
             }
             level.add(ans);
             leftToRight = !leftToRight;
         }
-       return level;
+        return level;
     }
 
-    public static void main(String[] args) {
-        int nodes[] = { 1, 2, 4, -1, -1, 5, -1, -1, 3, 6, -1, -1, 7, -1, -1 };
+    public Node invertBinaryTree(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node temp;
+        temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+        invertBinaryTree(root.left);
+        invertBinaryTree(root.right);
+        return root;
+    }
 
-        BinaryTree Btree = new BinaryTree();
-        Node root = Btree.BuildTree(nodes);
+    // Right Side view of binary Tree : Q 199
 
-        System.out.println("Preorder:");
-        Btree.preOrder(root);
+    static class struct {
+        Node root;
+        int vd;
 
-        System.out.println("\n Kth level of Tree");
-        Btree.kthLevelOfTree(root, 1, 2);
+        public struct(Node root, int vd) {
+            this.root = root;
+            this.vd = vd;
+        }
+    }
 
-        // System.out.println("\n lowest common ancestor : " +
-        // Btree.lowestCommonAncestor(root, 4, 6).data);
-        // System.out.println("\n Minimum Distance between Nodes : " +
-        // Btree.MinDistanceBetweenNodes(root, 4, 6));
+    public List<Integer> rightSideView(Node root) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (root == null) {
+            return list;
+        }
 
-        // System.out.println("Kth ancestor of Node : " + Btree.KthAncestorofNode(root,
-        // 6, 2));
+        Queue<struct> q = new LinkedList<>();
+        HashMap<Integer, Node> map = new HashMap<>();
+        int max = 0;
+        q.offer(new struct(root, 1));
 
-        // System.out.println("\n Traverse \n");
-        // Btree.Levelorder(root);
+        while (!q.isEmpty()) {
+            struct curr = q.poll();
 
-        // System.out.println("Transform sum of Tree : " +
-        // Btree.transformSumOfTree(root));
+            if (curr == null || curr.root == null) {
+                if (q.isEmpty()) {
+                    break;
+                }
+            } else {
+                if (!map.containsKey(curr.vd)) {
+                    map.put(curr.vd, curr.root);
+                }
 
-        // System.out.println("\n Traverse \n");
-        // Btree.Levelorder(root);
+                if (curr.root.right != null) {
+                    q.offer(new struct(curr.root.right, curr.vd+1));
+                }
+                if (curr.root.left != null) {
+                    q.offer(new struct(curr.root.left, curr.vd+1));
+                }
+            }
+        }
 
-        // int[] preorder = { 3, 9, 20, 15, 7 }, inorder = { 9, 3, 15, 20, 7 },
-        // postorder = {9,15,7,20,3};
-
-        // Node newRoot = Btree.buildNodeFromPreOrderAndInOrder(preorder, inorder);
-
-        // System.out.println("\n Traverse \n");
-        // Btree.Levelorder(newRoot);
-
-        // System.out.println(" \n Post and Inorder Tree formation \n");
-
-        // Node postRoot = Btree.buildNodeFromPostOrderAndInOrder(postorder, inorder);
-
-        // System.out.println("\n Traverse \n");
-        // Btree.Levelorder(postRoot);
-
-        System.out.println("\n Level Order Traversal \n");
-        Btree.Levelorder(root);
-
-        System.out.println("\n Zig Zag level Order Traversal \n");
-        System.out.println(Btree.ZigzagLevelorder(root).toString());
-
+        for (int i = 1; i < map.size()+1; i++) {
+            list.add(map.get(i).data);
+        }
+        System.out.println(map.toString());
+        return list;
     }
 }
