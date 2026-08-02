@@ -1,5 +1,7 @@
 package Trees.BinarySearchTrees;
 
+import java.util.ArrayList;
+
 public class BST {
 
     static class TreeNode {
@@ -45,25 +47,85 @@ public class BST {
         preOrder(root.left);
         preOrder(root.right);
     }
-    
-    public void inOrder(TreeNode root){
-        if(root==null){
-            return ;
+
+    public void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
         }
         inOrder(root.left);
-        System.out.println(root.val+",");
+        System.out.println(root.val + ",");
         inOrder(root.right);
     }
 
-    public boolean search(TreeNode root , int key){
-        if(root==null){
+    public boolean search(TreeNode root, int key) {
+        if (root == null) {
             return false;
         }
-        if(root.val==key)return true;
-      
-    return key>root.val?search(root.right, key):search(root.left, key);
+        if (root.val == key)
+            return true;
+
+        return key > root.val ? search(root.right, key) : search(root.left, key);
     }
 
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        } else if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        } else {
+            if (root.left == null && root.right == null) {
+                return null;
+            } else if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            } else {
+                TreeNode minNode = findMin(root.right);
+                root.val = minNode.val;
+                root.right = deleteNode(root.right, minNode.val);
+            }
+        }
+        return root;
+    }
 
-    public 
+    public TreeNode findMin(TreeNode root) {
+        while (root.left != null) {
+            root = root.left;
+        }
+        return root;
+    }
+
+    public void PrintRootToLeaf(TreeNode root, ArrayList<Integer> path) {
+        if (root == null) {
+            return;
+        }
+        path.add(root.val);
+        if (root.left == null && root.right == null) {
+            System.out.println(path.toString());
+        }
+        PrintRootToLeaf(root.left, path);
+        PrintRootToLeaf(root.right, path);
+        path.remove(path.size() - 1);
+    }
+
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+
+        long max = Long.MAX_VALUE;
+        long min = Long.MIN_VALUE;
+        return isValidBSTUtil(root, min, max);
+
+    }
+
+    public boolean isValidBSTUtil(TreeNode root, long min, long max) {
+        if (root == null) {
+            return true;
+        }
+        if (root.val <= min || root.val >= max) {
+            return false;
+        }
+        return isValidBSTUtil(root.left, min, root.val) && isValidBSTUtil(root.right, root.val, max);
+    }
 }
