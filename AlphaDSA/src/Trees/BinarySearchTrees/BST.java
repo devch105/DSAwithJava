@@ -128,4 +128,25 @@ public class BST {
         }
         return isValidBSTUtil(root.left, min, root.val) && isValidBSTUtil(root.right, root.val, max);
     }
+
+    int result = -1;
+    int count = 0;
+
+    public int kthSmallest(TreeNode root, int k) {
+        preOrderToFindSmallest(root, k);
+        return result;
+    }
+
+    public void preOrderToFindSmallest(TreeNode root, int k) {
+        if (root == null) {
+            return;
+        }
+
+        preOrderToFindSmallest(root.left, k);
+        count++;
+        if (count == k) {
+            result = root.val;
+        }
+        preOrderToFindSmallest(root.right, k);
+    }
 }

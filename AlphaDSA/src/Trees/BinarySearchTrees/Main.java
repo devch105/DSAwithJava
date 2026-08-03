@@ -15,10 +15,11 @@ public class Main {
         bst.inOrder(root);
         System.out.println("Found in BST : " + bst.search(root, 2));
 
-      
         System.out.println("Print Roots to all leaves paths:");
         ArrayList<Integer> path = new ArrayList<>();
         bst.PrintRootToLeaf(root, path);
         System.out.println("Is Valid BST : " + bst.isValidBST(root));
+
+        System.out.println("Kth Smallest Element in BST : Q:230 : " + bst.kthSmallest(root, 6));
     }
 }
