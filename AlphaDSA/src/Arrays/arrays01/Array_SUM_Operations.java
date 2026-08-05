@@ -1,4 +1,4 @@
-package arrays01;
+package Arrays.arrays01;
 
 public class Array_SUM_Operations {
 

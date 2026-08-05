@@ -1,5 +1,4 @@
-package POTD.Feb.Leetcode;
-
+package Leetcode.POTD.Feb.Leetcode;
 import java.util.Stack;
 
 public class P_3174 {

@@ -1,4 +1,4 @@
-package POTD;
+package Leetcode.POTD;
 
 public class ReverseOddNOdes_2415 {
     class TreeNode {

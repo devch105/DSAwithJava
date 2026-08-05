@@ -1,4 +1,4 @@
-package LinkedList01.DoubleLinkedList;
+package LinkedList.LinkedList01.DoubleLinkedList;
 
 public class DLL {
     Node head;

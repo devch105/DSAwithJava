@@ -1,4 +1,4 @@
-package LinkedList01.CircularSingleLinkedList;
+package LinkedList.LinkedList01.CircularSingleLinkedList;
 public class CSL {
  Node tail;
  int size=0;

@@ -1,4 +1,4 @@
-package LinkedList01.SingleLinkedList;
+package LinkedList.LinkedList01.SingleLinkedList;
 
 public class SLL {
     ListNode head;

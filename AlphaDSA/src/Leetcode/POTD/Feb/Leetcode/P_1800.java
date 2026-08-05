@@ -1,5 +1,4 @@
-package POTD.Feb.Leetcode;
-
+package Leetcode.POTD.Feb.Leetcode;
 public class P_1800 {
     public static int maxAscendingSum(int[] nums) {
 

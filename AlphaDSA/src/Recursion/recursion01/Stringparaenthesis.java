@@ -1,4 +1,4 @@
-package recursion01;
+package Recursion.recursion01;
 
 public class Stringparaenthesis {
   static boolean check(String s,int i, int j)
