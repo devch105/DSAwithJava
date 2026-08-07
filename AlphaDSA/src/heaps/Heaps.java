@@ -81,18 +81,52 @@ public class Heaps {
         // System.out.println("Connecting ropes cost: " + new Heaps().connectNRopes(new
         // int[] { 4, 3, 2, 6 }));
 
-        int army[][] = { { 1, 0, 0, 0 },
-                { 1, 1, 1, 1 },
-                { 1, 0, 0, 0 },
-                { 1, 0, 0, 0 } };
-        int k = 2;
+        // int army[][] = {
+        // { 1, 1, 0, 0, 0 },
+        // { 1, 1, 1, 1, 0 },
+        // { 1, 0, 0, 0, 0 },
+        // { 1, 1, 0, 0, 0 },
+        // { 1, 1, 1, 1, 1 } };
+        // int k = 3;
+        // int arr[] = kWeakestRows(army, k);
+        // for (int x : arr) {
+        // System.out.println(x + ",");
+        // }
 
-        weakestSolider(army, k);
+        int arr[] = { 1, 3, -1, -3, 5, 3, 6, 7 };
+        int k = 3;
 
+        System.out.println("maximums : " + slidingWindowMaximum(arr, k));
     }
 
-    public static ArrayList<Integer> slidingWindowMaximum(int arr[]) {
+    static class Element {
+        int val;
+        int idx;
+
+        public Element(int val, int idx) {
+            this.val = val;
+            this.idx = idx;
+        }
+    }
+
+    public static ArrayList<Integer> slidingWindowMaximum(int arr[], int k) {
         ArrayList<Integer> list = new ArrayList<>();
+        PriorityQueue<Element> pq = new PriorityQueue<>((a, b) -> b.val - a.val);
+
+        for (int i = 0; i < k; i++) {
+            pq.offer(new Element(arr[i], i));
+        }
+
+        list.add(pq.peek().val);
+
+        for (int i = k; i < arr.length; i++) {
+
+            while (pq.size() > 0 && pq.peek().idx <= (i - k)) {
+                pq.poll();
+            }
+            pq.offer(new Element(arr[i], i));
+            list.add(pq.peek().val);
+        }
         return list;
     }
 
@@ -115,7 +149,7 @@ public class Heaps {
         }
     }
 
-    public static void weakestSolider(int mat[][], int k) {
+    public static int[] kWeakestRows(int[][] mat, int k) {
         PriorityQueue<Row> pq = new PriorityQueue<>();
         for (int i = 0; i < mat.length; i++) {
             int count = 0;
@@ -125,10 +159,11 @@ public class Heaps {
             pq.offer(new Row(count, i));
         }
 
-        while (k > 0 && !pq.isEmpty()) {
-            System.out.println("Row:" + pq.poll().idx);
-            k--;
+        int arr[] = new int[k + 1];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = pq.poll().idx;
         }
+        return arr;
     }
 
     public int connectNRopes(int[] ropes) {
