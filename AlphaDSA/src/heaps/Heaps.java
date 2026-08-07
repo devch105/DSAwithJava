@@ -78,7 +78,72 @@ public class Heaps {
 
     public static void main(String[] args) {
         System.out.println("Hello, Heaps!");
+        // System.out.println("Connecting ropes cost: " + new Heaps().connectNRopes(new
+        // int[] { 4, 3, 2, 6 }));
 
+        int army[][] = { { 1, 1, 0, 0, 0 },
+                { 1, 1, 1, 1, 0 },
+                { 1, 0, 0, 0, 0 },
+                { 1, 1, 0, 0, 0 },
+                { 1, 1, 1, 1, 1 } };
+        int k = 3;
+
+        weakestSolider(army, k);
+
+    }
+
+    static class Row implements Comparable<Row> {
+        int count;
+        int idx;
+
+        public Row(int count, int idx) {
+            this.count = count;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Row r2) {
+            if (this.count == r2.count) {
+                return this.idx - r2.idx;
+            } else {
+                return this.count - r2.idx;
+            }
+        }
+    }
+
+    public static void weakestSolider(int mat[][], int k) {
+        PriorityQueue<Row> pq = new PriorityQueue<>();
+        for (int i = 0; i < mat.length; i++) {
+            int count = 0;
+            for (int j = 0; j < mat[0].length; j++) {
+                count += mat[i][j] == 1 ? 1 : 0;
+            }
+            pq.offer(new Row(count, i));
+        }
+
+        while (k > 0 && !pq.isEmpty()) {
+            System.out.println("Row:" + pq.poll().idx);
+            k--;
+        }
+    }
+
+    public int connectNRopes(int[] ropes) {
+        Heapy h = new Heapy();
+        for (int x : ropes) {
+            h.add(x);
+        }
+
+        int cost = 0;
+        while (!h.isEmpty()) {
+            int first = h.delete();
+            if (h.isEmpty()) {
+                break;
+            }
+            int second = h.delete();
+            cost += first + second;
+            h.add(first + second);
+        }
+        return cost;
     }
 
     public static void testHeap() {
