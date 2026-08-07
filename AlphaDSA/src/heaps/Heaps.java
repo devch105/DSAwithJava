@@ -81,12 +81,11 @@ public class Heaps {
         // System.out.println("Connecting ropes cost: " + new Heaps().connectNRopes(new
         // int[] { 4, 3, 2, 6 }));
 
-        int army[][] = { { 1, 1, 0, 0, 0 },
-                { 1, 1, 1, 1, 0 },
-                { 1, 0, 0, 0, 0 },
-                { 1, 1, 0, 0, 0 },
-                { 1, 1, 1, 1, 1 } };
-        int k = 3;
+        int army[][] = { { 1, 0, 0, 0 },
+                { 1, 1, 1, 1 },
+                { 1, 0, 0, 0 },
+                { 1, 0, 0, 0 } };
+        int k = 2;
 
         weakestSolider(army, k);
 
