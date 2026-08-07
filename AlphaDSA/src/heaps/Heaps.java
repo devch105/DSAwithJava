@@ -91,6 +91,11 @@ public class Heaps {
 
     }
 
+    public static ArrayList<Integer> slidingWindowMaximum(int arr[]) {
+        ArrayList<Integer> list = new ArrayList<>();
+        return list;
+    }
+
     static class Row implements Comparable<Row> {
         int count;
         int idx;
