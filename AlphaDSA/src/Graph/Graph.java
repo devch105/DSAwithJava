@@ -3,6 +3,7 @@ package Graph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Graph {
@@ -47,14 +48,14 @@ public class Graph {
         /*
          * 1
          * 0 -------> 1
-         * |          | \
-         * 2|       3 |  \ 5
-         * ↓          ↓   ↓
+         * | | \
+         * 2| 3 | \ 5
+         * ↓ ↓ ↓
          * 2 -------> 3 → 4
-         * 4          | \
-         *           1|  \2
-         *            ↓   ↓
-         *            5  ←--
+         * 4 | \
+         * 1| \2
+         * ↓ ↓
+         * 5 ←--
          * 
          * Edges:
          * 
@@ -71,19 +72,19 @@ public class Graph {
          */
 
         // Vertex 0
-        graph[0].add(new Edge(0, 1, 1));
+        graph[0].add(new Edge(0, 1, 3));
         graph[0].add(new Edge(0, 2, 2));
 
         // Vertex 1
         graph[1].add(new Edge(1, 3, 3));
-        graph[1].add(new Edge(1, 4, 5));
+        graph[1].add(new Edge(1, 4, 5)); 
 
         // Vertex 2
-        graph[2].add(new Edge(2, 3, 4));
+        graph[2].add(new Edge(2, 3, 6));
 
         // Vertex 3
         graph[3].add(new Edge(3, 4, 2));
-        graph[3].add(new Edge(3, 5, 1));
+        graph[3].add(new Edge(3, 5, 2));
 
         // Vertex 4
         graph[4].add(new Edge(4, 5, 2));
@@ -203,7 +204,6 @@ public class Graph {
     }
 
     /**************** TOPOLOGICAL SORT ****************/
-
     // Topological Sort using BFS
     // Also known as Kahn's Algorithm
     public static void topologicalSort(ArrayList<Edge>[] graph) {
@@ -241,7 +241,7 @@ public class Graph {
             System.out.print(curr + " ");
             count++;
 
-            // Remove current vertex's outgoing   edges
+            // Remove current vertex's outgoing edges
             for (Edge e : graph[curr]) {
 
                 inDeg[e.dest]--;
@@ -263,7 +263,69 @@ public class Graph {
         }
     }
 
-    /**************** MAIN ****************/
+    public static void sourceToTarget(ArrayList<Edge>[] graph, int s, int t, String path) {
+        if (s == t) {
+            System.out.println(path + "->" + t);
+            return;
+        }
+        for (int i = 0; i < graph[s].size(); i++) {
+            Edge e = graph[s].get(i);
+            sourceToTarget(graph, e.dest, t, path + s);
+        }
+    }
+
+    /************* DIJKSTRA ALGORITHIM *************/
+
+    static class Pair {
+        int n;
+        int pt;
+
+        public Pair(int n, int pt) {
+            this.n = n;
+            this.pt = pt;
+        }
+    }
+
+    public static void dijkstra(ArrayList<Edge>[] graph, int src) {
+        int dist[] = new int[graph.length];
+        boolean vis[] = new boolean[graph.length];
+        for (int i = 0; i < graph.length; i++) {
+            if (i != src) {
+                dist[i] = Integer.MAX_VALUE;
+            }
+        }
+
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.pt - b.pt); // path based sorting on pairs
+
+        pq.add(new Pair(0, 0));
+
+        while (!pq.isEmpty()) {
+
+            Pair curr = pq.remove();
+
+            if (!vis[curr.n]) {
+                vis[curr.n] = true;
+
+                for (int i = 0; i < graph[curr.n].size(); i++) {
+                    Edge e = graph[curr.n].get(i);
+                    int u = e.src;
+                    int v = e.dest;
+                    int w = e.wt;
+
+                    if (dist[u] + w < dist[v]) { // src + wt < destination weight
+                        dist[v] = dist[u] + w;
+                        pq.add(new Pair(v, dist[v]));
+                    }
+
+                }
+            }
+        }
+        for (int i = 0; i < dist.length; i++) {
+            System.out.println("0->" + i + " --- " + dist[i]);
+        }
+        ;
+
+    }
 
     public static void main(String[] args) {
 
@@ -305,20 +367,16 @@ public class Graph {
 
         int[] inDeg = new int[graph.length];
         int[] outDeg = new int[graph.length];
-
         findInDeg_OutDeg(graph, inDeg, outDeg);
-
-        for (int i = 0; i < graph.length; i++) {
-
-            System.out.println(
-                    "Vertex " + i +
-                            " -> InDegree: " + inDeg[i] +
-                            ", OutDegree: " + outDeg[i]);
-        }
 
         // Topological Sort
         System.out.println("\n--- Topological Sort ---");
-
         topologicalSort(graph);
+
+        System.out.println("\n All Paths from source to target");
+        sourceToTarget(graph, 0, 4, "");
+
+        System.out.println("/n --------------------DIJKSTRA ALGO------------------ ");
+        dijkstra(graph, 0);
     }
 }
