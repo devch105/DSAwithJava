@@ -2,6 +2,7 @@ package Graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -12,7 +13,7 @@ public class Graph {
     // EDGE CLASS
     // ============================================================
 
-    static class Edge {
+    static class Edge implements Comparable<Edge> {
         int src;
         int dest;
         int wt;
@@ -33,6 +34,12 @@ public class Graph {
                     wt +
                     " }";
         }
+
+        @Override
+        public int compareTo(Edge e2) {
+            return this.wt - e2.wt;
+        }
+
     }
 
     // ============================================================
@@ -636,6 +643,7 @@ public class Graph {
         return graph;
     }
 
+    // cheapest flight
     public static int cheapesFlight(int n, int flights[][], int src, int dest, int k) {
         ArrayList<Edge>[] graph = createGraphy(flights, n);
 
@@ -679,6 +687,95 @@ public class Graph {
 
     }
 
+    // create edges list graph
+    public static ArrayList<Edge> createEdgelist(int graph[][]) {
+        ArrayList<Edge> edges = new ArrayList<>();
+
+        for (int i = 0; i < graph.length; i++) {
+
+            for (int j = i + 1; j < graph.length; j++) {
+
+                if (graph[i][j] != 0) {
+                    edges.add(new Edge(i, j, graph[i][j]));
+                }
+            }
+        }
+        return edges;
+    }
+
+    // create AdjacencyList
+    public static ArrayList<Edge>[] creatAjaList(int graph[][]) {
+        ArrayList<Edge>[] adj = new ArrayList[graph.length];
+
+        for (int i = 0; i < graph.length; i++) {
+            adj[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < graph.length; i++) {
+            for (int j = 0; j < graph.length; j++) {
+
+                if (graph[i][j] != 0) {
+                    adj[i].add(new Edge(i, j, graph[i][j]));
+                }
+            }
+        }
+        return adj;
+    }
+
+    static int N = 5;
+    static int par[] = new int[N];
+
+    static int rank[] = new int[N];
+
+    public static void init() {
+        for (int i = 0; i < N; i++) {
+            par[i] = i;
+        }
+    }
+
+    public static int find(int x) {
+        if (x == par[x]) {
+            return x;
+        }
+        // path compression : storing direct parent/leader
+        return par[x] = find(par[x]);
+    }
+
+    public static void union(int a, int b) {
+        int parA = find(a);
+        int parB = find(b);
+
+        if (rank[parA] == rank[parB]) {
+            par[parB] = parA;
+            rank[parA]++;
+        } else if (rank[parA] < rank[parB]) {
+            par[parA] = parB;
+        } else {
+            par[parB] = parA;
+        }
+    }
+
+    public static void kruskalsMst(ArrayList<Edge> edges, int v) {
+        init();
+        Collections.sort(edges);
+        int mstCost = 0;
+        int count = 0;
+        for (int i = 0; count < v - 1; i++) {
+            Edge e = edges.get(i);
+            // src ,dest , wt
+            int parA = find(e.src);
+            int parB = find(e.dest);
+
+            if (parA != parB) {
+                union(e.src, e.dest);
+                mstCost += e.wt;
+                count++;
+            }
+
+        }
+        System.out.println("Mst cost : " + mstCost);
+    }
+
     // ============================================================
     // MAIN
     // ============================================================
@@ -687,11 +784,20 @@ public class Graph {
 
         System.out.println("Graph Data Structure");
 
-        int n = 4;
-        int flights[][] = { { 0, 1, 100 }, { 1, 2, 100 }, { 2, 0, 100 }, { 1, 3, 600 }, { 2, 3, 200 } };
-        int src = 0, dist = 3, k = 1;
+        int[][] connections = {
+                // 0 1 2 3 4
+                { 0, 2, 0, 6, 0 }, // 0
+                { 2, 0, 3, 8, 5 }, // 1
+                { 0, 3, 0, 0, 7 }, // 2
+                { 6, 8, 0, 0, 9 }, // 3
+                { 0, 5, 7, 9, 0 } // 4
+        };
 
-        System.out.println(" Answer : "+cheapesFlight(n, flights, src, dist, k));
+        ArrayList<Edge> edges = createEdgelist(connections);
+        System.out.println("Edge list created");
+        kruskalsMst(edges, N);
+        ArrayList<Edge>[] graph = creatAjaList(connections);
+        primsAlgo(graph);
 
         // ========================================================
         // CREATE GRAPH
