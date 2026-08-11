@@ -15,7 +15,7 @@ public class DisJoint {
         if (x == par[x]) {
             return x;
         }
-        // path compression  : storing direct parent/leader 
+        // path compression : storing direct parent/leader 
         return  par[x] = find(par[x]);
     }
 
