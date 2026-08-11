@@ -600,23 +600,105 @@ public class Graph {
         System.out.println("Final Cost of MST : " + finalCost);
     }
 
+    // ====================================================
+    // Question : Cheapest flights within k Stops
+    // ====================================================
+
+    static class Info {
+        int v;
+        int cost;
+        int stop;
+
+        public Info(int v, int cost, int stop) {
+            this.v = v;
+            this.cost = cost;
+            this.stop = stop;
+        }
+    }
+
+    public static ArrayList<Edge>[] createGraphy(int arr[][], int n) {
+        ArrayList<Edge>[] graph = new ArrayList[n];
+        for (int i = 0; i < graph.length; i++) {
+            graph[i] = new ArrayList<>();
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+
+            int src = arr[i][0];
+            int dest = arr[i][1];
+            int cost = arr[i][2];
+
+            Edge e = new Edge(src, dest, cost);
+
+            graph[src].add(e);
+
+        }
+        return graph;
+    }
+
+    public static int cheapesFlight(int n, int flights[][], int src, int dest, int k) {
+        ArrayList<Edge>[] graph = createGraphy(flights, n);
+
+        int dist[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (i != src) {
+                dist[i] = Integer.MAX_VALUE;
+            }
+        }
+
+        Queue<Info> q = new LinkedList<>();
+        q.add(new Info(src, 0, 0));
+
+        while (!q.isEmpty()) {
+            Info curr = q.remove();
+            if (curr.stop > k) {
+                break;
+            }
+
+            for (int i = 0; i < graph[curr.v].size(); i++) {
+                Edge e = graph[curr.v].get(i);
+
+                int u = e.src;
+                int v = e.dest;
+                int wt = e.wt;
+
+                if (dist[u] != Integer.MAX_VALUE
+                        && dist[u] + wt < dist[v]
+                        && curr.stop <= k) {
+                    dist[v] = dist[u] + wt;
+                    q.add(new Info(v, dist[v], curr.stop + 1));
+                }
+            }
+        }
+
+        if (dist[dest] == Integer.MAX_VALUE) {
+            return -1;
+        } else {
+            return dist[dest];
+        }
+
+    }
+
     // ============================================================
     // MAIN
     // ============================================================
 
     public static void main(String[] args) {
 
-        System.out.println(
-                "Graph Data Structure");
+        System.out.println("Graph Data Structure");
 
-        Graph g = new Graph();
+        int n = 4;
+        int flights[][] = { { 0, 1, 100 }, { 1, 2, 100 }, { 2, 0, 100 }, { 1, 3, 600 }, { 2, 3, 200 } };
+        int src = 0, dist = 3, k = 1;
+
+        System.out.println(" Answer : "+cheapesFlight(n, flights, src, dist, k));
 
         // ========================================================
         // CREATE GRAPH
         // ========================================================
 
         // ArrayList<Edge>[] graph = g.createGraph();
-        ArrayList<Edge>[] graph = g.createGraph2();
+        // ArrayList<Edge>[] graph = g.createGraph2();
 
         // ========================================================
         // PRINT GRAPH
@@ -749,7 +831,6 @@ public class Graph {
         // ========================================================
         // PRIMS-ALGO
         // ========================================================
-        primsAlgo(graph);
-
+        // primsAlgo(graph);
     }
 }
