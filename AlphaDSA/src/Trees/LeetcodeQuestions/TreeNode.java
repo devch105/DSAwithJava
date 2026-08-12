@@ -21,6 +21,24 @@ public class TreeNode {
         this.right = right;
     }
 
+    public void printTree(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        System.out.print(root.val + " ");
+
+        printTree(root.left);
+        printTree(root.right);
+    }
+
+    public TreeNode buildTree() {
+        int arr[] = { 4, 2, 7, 1, 3, 6, 9 };
+
+        TreeNode root = createTree(arr);
+        return root;
+    }
+
     public TreeNode createTree(int[] arr) {
 
         if (arr == null || arr.length == 0) {
