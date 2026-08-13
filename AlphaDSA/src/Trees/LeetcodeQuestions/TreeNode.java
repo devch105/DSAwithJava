@@ -36,13 +36,16 @@ public class TreeNode {
         return root;
     }
 
-    static int indx = -1;
+    int indx = -1;
 
-    public static TreeNode BuildTree(int nodes[]) {
+    public TreeNode BuildTree(int nodes[]) {
+
         indx++;
-        if (nodes[indx] == -1) {
+
+        if (indx >= nodes.length || nodes[indx] == -1) {
             return null;
         }
+
         TreeNode newNode = new TreeNode(nodes[indx]);
 
         newNode.left = BuildTree(nodes);
