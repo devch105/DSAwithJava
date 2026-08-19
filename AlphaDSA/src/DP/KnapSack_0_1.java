@@ -82,14 +82,21 @@ public class KnapSack_0_1 {
             for (int j = 1; j < cap + 1; j++) {
                 int v = val[i - 1];
                 int w = wt[i - 1];
-
+                System.out.println("Item,weight : (" + v + "," + w + ")");
                 if (w <= j) {
+                    System.out.println("Included");
                     int ans1 = v + dp[i - 1][j - w];
+                    System.out.println(
+                            "Ans1 : " + v + " + dp[" + (i - 1) + "][" + j + "] : " + dp[i - 1][j - w] + " => " + ans1);
                     int ans2 = dp[i - 1][j];
+                    System.out.println("Ans2 : dp[" + (i - 1) + "][" + j + "] => " + ans2);
 
                     dp[i][j] = Math.max(ans1, ans2);
+                    System.out.println("dp[" + i + "][" + j + "] Max(" + ans1 + "," + ans2 + ") => " + dp[i][j]);
                 } else {
+                    System.out.println("Excluded");
                     dp[i][j] = dp[i - 1][j];
+                    System.out.println("dp[" + i + "][" + j + "] => " + dp[i][j]);
                 }
             }
         }
