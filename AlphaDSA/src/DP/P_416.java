@@ -6,6 +6,7 @@ public class P_416 {
     public static void main(String[] args) {
         int arr[] = { 1, 5, 11, 5 };
         System.out.println("Answer : " + canPartition(arr));
+
     }
 
     public static boolean canPartition(int[] nums) {
@@ -26,7 +27,12 @@ public class P_416 {
         // return isSolve(nums, 0, target);
 
         // Memoization
-        return solveMemo(nums, 0, target, dp);
+        boolean result = solveMemo(nums, 0, target, dp);
+
+        for (int i[] : dp) {
+            System.out.println(Arrays.toString(i));
+        }
+        return result;
     }
 
     // Recursive
