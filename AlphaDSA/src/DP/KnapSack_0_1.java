@@ -67,7 +67,7 @@ public class KnapSack_0_1 {
         }
     }
 
-    public static int solveTab(int val[], int wt[], int cap) { 
+    public static int solveTab(int val[], int wt[], int cap) {
         int N = val.length;
         int dp[][] = new int[N + 1][cap + 1];
         // initialization

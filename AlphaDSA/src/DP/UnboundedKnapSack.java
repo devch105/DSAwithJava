@@ -1,5 +1,7 @@
 package DP;
 
+import java.util.Arrays;
+
 public class UnboundedKnapSack {
     public static void main(String[] args) {
         int val[] = { 15, 14, 10, 45, 30 };
@@ -29,6 +31,12 @@ public class UnboundedKnapSack {
                 }
             }
         }
+
+        System.out.println(" : Tabulation DP Array : ");
+        for (int[] arr : dp) {
+            System.out.println(Arrays.toString(arr));
+        }
+
         return dp[nums.length][cap];
     }
 }
