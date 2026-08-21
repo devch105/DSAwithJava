@@ -1,6 +1,8 @@
 package DP;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class P_494 {
 
@@ -34,6 +36,9 @@ public class P_494 {
         for (int[] array : dp) {
             System.out.println(Arrays.toString(array));
         }
+
+        Map<String, Integer> map = new HashMap<>();
+        System.out.println("Answer using Map : " + calExpMap(arr, target, 0, 0, map));
     }
 
     public static int calculateExpSum(int nums[], int target, int cSum, int i) {
@@ -71,4 +76,25 @@ public class P_494 {
         dp[i][cSum + sum] = plus + minus;
         return dp[i][cSum + sum];
     }
+
+    public static int calExpMap(int nums[], int target, int cSum, int i, Map<String, Integer> map) {
+        if (i == nums.length) {
+            if (cSum == target) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        String key = i + "_" + cSum;
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+
+        int plus = calExpMap(nums, target, cSum + nums[i], i + 1, map);
+        int minus = calExpMap(nums, target, cSum - nums[i], i + 1, map);
+
+        map.put(key, plus + minus);
+        return map.get(key);
+    }
+
 }
