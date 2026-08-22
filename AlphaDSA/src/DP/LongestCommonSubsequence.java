@@ -61,7 +61,7 @@ public class LongestCommonSubsequence {
             for (int j = 1; j <= str2.length(); j++) {
                 char c1 = str1.charAt(i - 1);
                 char c2 = str2.charAt(j - 1);
-                if (c1 == c2) {
+                if (c1 == c2) { 
                     dp[i][j] = 1 + dp[i - 1][j - 1];
                 } else {
                     int include = dp[i - 1][j];
