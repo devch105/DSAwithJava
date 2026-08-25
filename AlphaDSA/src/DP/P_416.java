@@ -6,6 +6,7 @@ public class P_416 {
     public static void main(String[] args) {
         int arr[] = { 1, 5, 11, 5 };
         System.out.println("Answer : " + canPartition(arr));
+        System.out.println("Answer Tab : " + Tab(arr, 11));
 
     }
 
@@ -81,5 +82,33 @@ public class P_416 {
 
         dp[i][target] = (take || notTake) ? 1 : 0;
         return dp[i][target] == 1;
+    }
+
+    public static boolean Tab(int nums[], int target) {
+        int n = nums.length;
+        boolean dp[][] = new boolean[n + 1][target + 1];
+
+        // if target = 0 always true
+        for (int i = 0; i <=n; i++) {
+            dp[i][0] = true;
+        }
+        // i == n -> no element left
+        // dp[n][target] remains false for target>0
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 1; j < target + 1; j++) {
+
+                boolean notTake = dp[i + 1][j];
+
+                boolean take = false;
+                if (nums[i] <= target) {
+                    take = dp[i + 1][target - nums[i]];
+                }
+
+                dp[i][j] = take || notTake;
+
+            }
+        }
+        return dp[0][target];
     }
 }
