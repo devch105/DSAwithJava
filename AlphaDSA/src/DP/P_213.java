@@ -1,15 +1,37 @@
 package DP;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class P_213 {
     public static void main(String[] args) {
-        int[] house = { 1 };
-        if (house.length == 1) {
-            System.out.println("Answer : " + house[0]);
-        } else {
-            System.out.println("Answer : " + rob(house));
+        int[] arr = { 1 };
+        // if (house.length == 1) {
+        // System.out.println("Answer : " + house[0]);
+        // } else {
+        // System.out.println("Answer : " + rob(house));
+        // }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int z = memo(0, arr.length - 2, arr, map);
+        HashMap<Integer, Integer> map1 = new HashMap<>();
+        int o = memo(1, arr.length - 1, arr, map1);
+        System.out.println();
+        Math.max(z, o);
+    }
+
+    public static int memo(int i, int x, int arr[], HashMap<Integer, Integer> map) {
+        if (i > x) {
+            return 0;
         }
+        if (map.containsKey(i)) {
+            return map.get(i);
+        }
+
+        int pick = arr[i] + memo(i + 2, x, arr, map);
+        int miss = memo(i + 1, x, arr, map);
+
+        map.put(i, Math.max(pick, miss));
+        return map.get(i);
     }
 
     public static int rob(int[] arr) {
