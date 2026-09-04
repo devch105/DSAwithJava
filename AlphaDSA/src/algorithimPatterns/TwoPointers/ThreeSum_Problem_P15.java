@@ -9,7 +9,7 @@ import java.util.List;
 public class ThreeSum_Problem_P15 {
     
     public static void main(String args[]) {
-        int arr [] ={ 0,0,0};
+        int arr [] ={-1,0,1,2,-1,-4};
 
         System.out.println(threeSum(arr));
 
