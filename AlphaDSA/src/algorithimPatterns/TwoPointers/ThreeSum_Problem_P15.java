@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ThreeSum_Problem_P15 {
     
-    public  static void main() {
+    public static void main(String args[]) {
         int arr [] ={ 0,0,0};
 
         System.out.println(threeSum(arr));
