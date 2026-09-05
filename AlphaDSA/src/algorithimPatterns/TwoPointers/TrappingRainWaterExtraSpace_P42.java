@@ -5,6 +5,7 @@ public class TrappingRainWaterExtraSpace_P42 {
 
         int arr[] = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         System.out.println("answer : " + trap(arr));
+        System.out.println("Answer : "+trapWater(arr));
     }
 
     public static int trap(int[] height) {
@@ -38,6 +39,35 @@ public class TrappingRainWaterExtraSpace_P42 {
             rightMax[i] = Math.max(rightMax[i + 1], arr[i]); // ✅ fix
         }
         return rightMax;
+    }
+
+
+// Approach is Similar to Container With Most Water
+    public static int trapWater(int[] height) {
+
+     int leftMax=0;
+     int rightMax=0;
+
+     int n=  height.length;
+
+     int left=0;
+     int right=n-1;
+
+     int totalWater = 0;
+
+     while(left < right){
+        leftMax= Math.max(leftMax, height[left]);
+        rightMax=Math.max(rightMax,height[right]);
+
+        if(leftMax < rightMax){
+            totalWater += leftMax - height[left];
+            left++;
+        }else{
+            totalWater += rightMax - height[right];
+            right--;
+        }
+     }
+     return totalWater;
     }
 
 }
