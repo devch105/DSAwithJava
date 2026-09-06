@@ -36,8 +36,7 @@ public class P_494 {
             System.out.println(Arrays.toString(array));
         }
 
-        HashMap<String, Integer> map = new HashMap<>();
-        System.out.println("Answer : " + memo(0, arr, 0, target, map));
+       System.out.println("Answer : "+findTargetSumWays(arr, target));
     }
 
     public static int calculateExpSum(int nums[], int target, int cSum, int i) {
@@ -78,12 +77,12 @@ public class P_494 {
 
 
     // MapMemoization + Recursion
-    public int findTargetSumWays(int[] nums, int target) {
+    public static  int findTargetSumWays(int[] nums, int target) {
         HashMap<String,Integer> map = new HashMap<>();
         return mapmemo(nums,target,0,0,map);
     }
 
-    public int mapmemo(int nums[], int target, int cSum,  int i, HashMap<String , Integer> map){
+    public static  int mapmemo(int nums[], int target, int cSum,  int i, HashMap<String , Integer> map){
         if(i>=nums.length){
             if(cSum==target){
                 return 1;
