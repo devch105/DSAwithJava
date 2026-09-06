@@ -4,8 +4,8 @@ public class MinimumSizeSubArraySum_P209 {
 
     public static void main(String[] args) {
 
-        int arr[] = {1,1,1,1,1,1,1};
-        int target = 11;
+        int arr[] = {1,1,4,1,1,1,1};
+        int target = 5;
 
         System.out.println(
                 "Minimum subarray length : "
