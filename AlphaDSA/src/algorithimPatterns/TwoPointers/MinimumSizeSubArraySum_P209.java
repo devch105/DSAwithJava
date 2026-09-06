@@ -4,8 +4,8 @@ public class MinimumSizeSubArraySum_P209 {
 
     public static void main(String[] args) {
 
-        int arr[] = {1,1,1,1,1,1,1};
-        int target = 11;
+        int arr[] = {1,1,4,1,1,1,1};
+        int target = 5;
 
         System.out.println(
                 "Minimum subarray length : "
@@ -13,26 +13,25 @@ public class MinimumSizeSubArraySum_P209 {
         );
     }
 
-    public static int minSubArrayLen(int target, int[] nums) {
+   public static  int minSubArrayLen(int target, int[] nums) {
+        int sum=0;
+        int left=0;
+        int min = Integer.MAX_VALUE;
+        int right =0;
 
-        int sum = 0;
-        int left = 0;
+        while(right < nums.length){
 
-        int minLength = Integer.MAX_VALUE;  // minlen
+            sum+=nums[right];
 
-        for (int right = 0; right < nums.length; right++) {  // right poinnter
 
-            sum += nums[right];  // prefixSum
+            while(sum >= target){
+               min = Math.min(min,right-left+1);
 
-            while (sum >= target) {  // shrinking window for making len as minimum as possible for the condition
-
-                minLength = Math.min(minLength, right - left + 1);
-
-                sum -= nums[left];  // remove left from prefix
-                left++;
+               sum-=nums[left];
+               left++;
             }
-        }
-
-        return minLength == Integer.MAX_VALUE ? 0 : minLength;
+            right++;
+        }   
+        return min == Integer.MAX_VALUE ? 0 : min;
     }
 }
