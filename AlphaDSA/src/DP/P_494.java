@@ -76,27 +76,33 @@ public class P_494 {
         return dp[i][cSum + sum];
     }
 
-    public static int memo(int i, int nums[], int cSum, int target, HashMap<String, Integer> map) {
 
-        if (i == nums.length) {
-            if (cSum == target) {
+    // MapMemoization + Recursion
+    public int findTargetSumWays(int[] nums, int target) {
+        HashMap<String,Integer> map = new HashMap<>();
+        return mapmemo(nums,target,0,0,map);
+    }
+
+    public int mapmemo(int nums[], int target, int cSum,  int i, HashMap<String , Integer> map){
+        if(i>=nums.length){
+            if(cSum==target){
                 return 1;
-            } else {
+            }else{
                 return 0;
             }
         }
 
-        String key = i + "_" + cSum;
+        String key = i+"_"+cSum;
 
-        if (map.containsKey(key)) {
+        if(map.containsKey(key)){
             return map.get(key);
         }
 
-        int plus = memo(i + 1, nums, cSum + nums[i], target, map);
-        int minus = memo(i + 1, nums, cSum - nums[i], target, map);
+        int add  =  mapmemo(nums,target,cSum+nums[i],i+1,map);
+        int minus = mapmemo(nums,target,cSum-nums[i],i+1,map);
 
-        int result = plus + minus;
-        map.put(key, result);
+        int ways = add +minus;
+        map.put(key,ways);
         return map.get(key);
     }
 
