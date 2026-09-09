@@ -2,53 +2,36 @@ package algorithimPatterns.SlidingWindow;
 
 public class MaximumConsecutiveOnes_P1004 {
 
-    static void main() {
+    public static void main(String[] args) {
 
         int[] nums = {
-                0,0,1,1,0,0,1,1,1,
-                0,1,1,0,0,0,1,1,1,1
+                0, 0, 1, 1, 0, 0, 1, 1, 1,
+                0, 1, 1, 0, 0, 0, 1, 1, 1, 1
         };
 
         int k = 3;
 
         System.out.println(
                 "Maximum Consecutive Ones : "
-                        + longestOnes(nums, k)
-        );
+                        + longestOnes(nums, k));
     }
 
     public static int longestOnes(int[] nums, int k) {
+        int left = 0, zeros = 0, maxLen = 0;
 
-        int left = 0;
-        int maxLen = 0;
-
-        int zeroCount = 0;
-
-        for (int right = 0; right < nums.length; right++) {
-
-            // include right element
-            if (nums[right] == 0) {
-                zeroCount++;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                zeros++;
             }
-
-            // invalid window
-            while (zeroCount > k) {
-
-                // remove left element
+            if (zeros > k) {
                 if (nums[left] == 0) {
-                    zeroCount--;
+                    zeros--;
                 }
-
                 left++;
             }
-
-            // valid window length
-            maxLen = Math.max(
-                    maxLen,
-                    right - left + 1
-            );
+            maxLen = Math.max(i - left + 1, maxLen);
         }
-
         return maxLen;
     }
+
 }
