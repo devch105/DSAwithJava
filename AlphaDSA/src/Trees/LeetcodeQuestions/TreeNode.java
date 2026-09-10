@@ -1,5 +1,8 @@
 package Trees.LeetcodeQuestions;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TreeNode {
     int val;
     TreeNode left;
@@ -38,22 +41,40 @@ public class TreeNode {
 
     int indx = -1;
 
-    public TreeNode BuildTree(int nodes[]) {
+    public TreeNode BuildTree(int[] arr) {
 
-        indx++;
-
-        if (indx >= nodes.length || nodes[indx] == -1) {
-            return null;
-        }
-
-        TreeNode newNode = new TreeNode(nodes[indx]);
-
-        newNode.left = BuildTree(nodes);
-        newNode.right = BuildTree(nodes);
-
-        return newNode;
+    if (arr == null || arr.length == 0 || arr[0] == -1) {
+        return null;
     }
 
+    TreeNode root = new TreeNode(arr[0]);
+
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+
+    int i = 1;
+
+    while (i < arr.length) {
+
+        TreeNode current = queue.poll();
+
+        // Left child
+        if (i < arr.length && arr[i] != -1) {
+            current.left = new TreeNode(arr[i]);
+            queue.add(current.left);
+        }
+        i++;
+
+        // Right child
+        if (i < arr.length && arr[i] != -1) {
+            current.right = new TreeNode(arr[i]);
+            queue.add(current.right);
+        }
+        i++;
+    }
+
+    return root;
+}
     // BINARY SEARCH TREE
 
     public TreeNode buildBST() {
