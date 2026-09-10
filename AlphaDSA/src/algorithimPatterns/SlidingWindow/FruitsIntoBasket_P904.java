@@ -3,36 +3,36 @@ package algorithimPatterns.SlidingWindow;
 import java.util.HashMap;
 
 public class FruitsIntoBasket_P904 {
-    static void main() {
+    public static void main(String args[]) {
 
-        int k=2;
-        int arr [] = {3,3,3,1,2,1,1,2,3,3,4};
+        // int k=2;
+        int arr[] = { 3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4 };
 
-        System.out.println("total fruits : "+totalFruit(arr,k));
+        System.out.println("total fruits : " + totalFruit(arr));
     }
 
-    public static int totalFruit(int[] fruits, int k) {
-        int left =0,right = 0,maxLen = 0;
-        HashMap<Integer,Integer> map = new HashMap<>();
-        while(right < fruits.length){
-            map.put(fruits[right],map.getOrDefault(fruits[right],0)+1);
+    public static int totalFruit(int[] nums) {
+        int left = 0, max = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
 
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
 
-            if(map.size()>k){
-                while(map.size()>k){
-                    map.put(fruits[left],map.getOrDefault(fruits[left],0)-1);
-                    if(map.get(fruits[left]) == 0){
-                        map.remove(fruits[left]);
+            if (map.size() > 2) {
+                while (map.size() > 2) {
+                    if (map.containsKey(nums[left])) {
+                        map.put(nums[left], map.get(nums[left]) - 1);
+
+                        if (map.get(nums[left]) == 0) {
+                            map.remove(nums[left]);
+                        }
+                        left++;
                     }
-                    left++;
                 }
             }
 
-            if(map.size()<=k){
-                maxLen=Math.max(maxLen,right-left+1);
-            }
-            right++;
+            max = Math.max(max, i - left + 1);
         }
-        return maxLen;
+        return max;
     }
 }
