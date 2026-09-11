@@ -1,70 +1,113 @@
 package algorithimPatterns.SlidingWindow;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.List;
 
 public class SlidingWindowMaximum_P239 {
 
-   public static void main( String args[]) {
+    public static void main(String args[]) {
 
-        int [] nums = {1,3,-1,-3,5,3,6,7};
+        int[] nums = { 1, 3, -1, -3, 5, 3, 6, 7 };
         int k = 3;
-       // Output: [3,3,5,5,6,7]
+        // Output: [3,3,5,5,6,7]
 
-       Deque<Integer> dq= new ArrayDeque<>();
+        Deque<Integer> dq = new ArrayDeque<>();
 
-       // add first 
-       dq.addFirst(20);
-       dq.addFirst(10);
-       System.out.println(dq);
-       // add last
-       dq.addLast(30);
-       dq.addLast(40);
-       System.out.println(dq);
-       // add at front and return true/false
-       System.out.println("offer first : "+dq.offerFirst(5)+" update dq : "+dq);
-       System.out.println("Offer Last : "+dq.offerLast(50)+" update dq : "+dq);
+        // add first
+        dq.addFirst(20);
+        dq.addFirst(10);
+        System.out.println(dq);
+        // add last
+        dq.addLast(30);
+        dq.addLast(40);
+        System.out.println(dq);
+        // add at front and return true/false
+        System.out.println("offer first : " + dq.offerFirst(5) + " update dq : " + dq);
+        System.out.println("Offer Last : " + dq.offerLast(50) + " update dq : " + dq);
 
-       System.out.println("remove first : "+dq.removeFirst());   // does not handle empty
-       System.out.println("remove last : "+dq.removeLast());    // does not handle empty
+        System.out.println("remove first : " + dq.removeFirst()); // does not handle empty
+        System.out.println("remove last : " + dq.removeLast()); // does not handle empty
 
-       System.out.println("Poll First : "+dq.pollFirst());
-       System.out.println("Poll Last : "+dq.pollLast());
+        System.out.println("Poll First : " + dq.pollFirst());
+        System.out.println("Poll Last : " + dq.pollLast());
 
-       System.out.println("Peek First : "+dq.peekFirst());
-       System.out.println("Peek Last : "+dq.peekLast());
+        System.out.println("Peek First : " + dq.peekFirst());
+        System.out.println("Peek Last : " + dq.peekLast());
 
-        System.out.println("Answer : "+Arrays.toString(maxSlidingWindow(nums,k)));
+        System.out.println("Answer : " + Arrays.toString(maxSlidingWindow(nums, k)));
+        System.out
+                .println("Answer : " + Arrays.toString(new SlidingWindowMaximum_P239().maxSlidingWindowEasy(nums, k)));
     }
 
     public static int[] maxSlidingWindow(int[] nums, int k) {
 
-        int n=nums.length;
-        int result [] =  new int[n - k + 1];
-                                                                //   ----------------------------------------------------------
-        Deque<Integer> deque = new ArrayDeque<>();              //                   DEdQUEUE
-                                                                //   ----------------------------------------------------------
+        int n = nums.length;
+        int result[] = new int[n - k + 1];
+        // ----------------------------------------------------------
+        Deque<Integer> deque = new ArrayDeque<>(); // DEdQUEUE
+                                                   // ----------------------------------------------------------
 
-        for(int i=0; i<n; i++){
-
+        for (int i = 0; i < n; i++) {
 
             // Remove indcies out of current window
-            if(!deque.isEmpty() && deque.peekFirst() < i-k+1){
+            if (!deque.isEmpty() && deque.peekFirst() < i - k + 1) {
                 deque.pollFirst();
             }
 
             // Remove smaller element from back
 
-            while(!deque.isEmpty() && nums[deque.peekLast()]<=nums[i]){ 
+            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
                 deque.pollLast();
             }
 
             deque.offerLast(i);
 
-            if(i>=k-1){
-                result[i-k+1]=nums[deque.peekFirst()];
+            if (i >= k - 1) {
+                result[i - k + 1] = nums[deque.peekFirst()];
             }
 
         }
         return result;
     }
+
+    public int[] maxSlidingWindowEasy(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+        List<Integer> list = new ArrayList<>();
+        // phase 1 : first window of size k
+        for (int i = 0; i < k; i++) {
+            // if dq Consist of Smaller elements than current remove them all
+            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
+                dq.pollLast();
+            }
+            // then add current
+            dq.offerLast(i);
+        }
+
+        // phase 2 : go further iterate array
+        for (int i = k; i < nums.length; i++) {
+            // add the first element of the dq as it is will be largest
+            list.add(nums[dq.peekFirst()]);
+
+            // remove the element unwanted in window
+
+            while (!dq.isEmpty() && dq.peekFirst() < i - k + 1) {
+                dq.pollFirst();
+            }
+
+            // now remove any smaller elements present like the phase 1
+            while (!dq.isEmpty() && nums[dq.peekLast()] <= nums[i]) {
+                dq.pollLast();
+            }
+            // again add the pending element
+            dq.offerLast(i);
+        }
+        list.add(nums[dq.peekFirst()]);
+
+        int arr[] = list.stream().mapToInt(Integer::intValue).toArray();
+        return arr;
+    }
+
 }
