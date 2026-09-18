@@ -18,6 +18,9 @@ public class P_974_SubarraySumDivisibleByK {
             prefixSum +=nums[i];
              
             int rem = prefixSum % k;
+            if(rem < 0){
+                rem += k;
+            }
             if(map.containsKey(rem)){
                 count +=map.get(rem);
             }
