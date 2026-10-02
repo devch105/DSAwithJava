@@ -11,6 +11,7 @@ public class P_235 {
 
     public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root.val == p.val || root.val == q.val) {
+            System.out.println("X-> : "+root.val);
             return root;
         }
 
@@ -18,12 +19,15 @@ public class P_235 {
         TreeNode rightLca = lowestCommonAncestor(root.right, p, q);
 
         if (rightLca == null) {
+            System.out.println("L-> : "+leftLca.val);
             return leftLca;
         }
         if (leftLca == null) {
+              System.out.println("R-> : "+rightLca.val);
             return rightLca;
         }
 
+        System.out.println("C-> :"+root.val);
         return root;
     }
 
