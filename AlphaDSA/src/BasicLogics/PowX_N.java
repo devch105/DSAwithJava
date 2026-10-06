@@ -3,8 +3,8 @@ package BasicLogics;
 public class PowX_N {
     public static void main(String[] args) {
         double  x=2;
-        int n=-10;
-        
+        int n=5;
+        System.out.println(n>>>=1);
         System.out.println(pow(x,n));
         
     }
