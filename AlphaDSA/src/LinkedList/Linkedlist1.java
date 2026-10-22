@@ -5,8 +5,8 @@ import Practice.ReverseLinkedList;
 
 public class Linkedlist1 {
     public static class Node {
-        int data;
-        Node next;
+       public int data;
+       public Node next;
 
         public Node(int data) {
             this.data = data;
@@ -64,7 +64,7 @@ public class Linkedlist1 {
     }
 
     /* Print List */
-    public void PrintList() {
+    public void PrintList(Node head) {
         Node temp = head;
         System.out.print("Head -> ");
         while (temp != null) {
@@ -128,36 +128,9 @@ public class Linkedlist1 {
         return (idx == -1) ? -1 : idx + 1;
     }
 
-    public int Search_2(int key) {
+    public int Search_Recursive(int key) {
         return helperfun(head, key);
     }
-
-    /* Reverse Linked List */
-//    public void Reverse() {
-//        Node prev = null, curr = head, next;
-//        tail = head;
-//        while (curr != null) {
-//            next = curr.next;
-//            curr.next = prev;
-//            prev = curr;
-//            curr = next;
-//        }
-//        head = prev;
-//    }
-    public void reverseList(){
-        Node curr=head;
-        Node prev=null,nxt=null;
-
-        while (curr!=null){
-            nxt=curr.next;
-            curr.next=prev;
-            prev=curr;
-            curr=nxt;
-        }
-
-        head=prev;
-    }
-
 
     /* Remove Nth Node from End */
     public int removeNth_end(int index) {
@@ -288,6 +261,21 @@ public class Linkedlist1 {
         }
     }
 
+    
+
+    public void reverse(){
+        Node curr = head;
+        Node prev = null;
+        Node nextNode = null;
+        while(curr!=null){
+            nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+       head = prev;
+    }
+
 
 //    // partition List
 //    public Node partitionList(Node head , int x){
@@ -332,19 +320,62 @@ public class Linkedlist1 {
 //    }
 //
 
+     public void RemoveKthLastNode(Node head, int k){
+      int len =0;
+        Node curr =head;
+        while(curr!=null){
+            len++;
+        }
+
+        curr = head;
+        int indx=0;
+        while(indx!=len-k){
+            curr=curr.next;
+            indx++;
+        }
+        curr.next = curr.next.next;
+     }
+
+     public Node tempList(int arr []){
+       Node head = null;
+       Node tail = null;
+       Node newNode = new Node(arr[0]);
+       head=tail=newNode;
+       for(int i=1; i<arr.length; i++){
+        Node nextNode = new Node(arr[i]);
+        tail.next = nextNode;
+        tail=tail.next;
+       }
+       return head;
+     }
+
+      public Node createCycleList(int arr []){
+       Node head = null;
+       Node tail = null;
+       Node newNode = new Node(arr[0]);
+       head=tail=newNode;
+       for(int i=1; i<arr.length; i++){
+        Node nextNode = new Node(arr[i]);
+        tail.next = nextNode;
+        tail=tail.next;
+       }
+       tail= head.next.next.next;
+       return head;
+    }
+
+
+
     public static void main(String[] args) {
         Linkedlist1 li = new Linkedlist1();
-        li.AddLast(5);
+        li.AddLast(1);
         li.AddLast(2);
         li.AddLast(3);
         li.AddLast(5);
         li.AddLast(6);
-        li.PrintList();
-        //        li.ZigZaglist();
-        //        li.reverseList();
-        li.PrintList();
-        //       li.partitionList(head,4);
-        li.PrintList();
+        // li.PrintList();
+        // li.RemoveKthLastNode(head, 2);
+        // li.PrintList();
+        
 
     }
 }

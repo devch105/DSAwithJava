@@ -1,7 +1,6 @@
-package LinkedList;
+package LinkedList.Practice;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class LRUCache {
 
@@ -20,91 +19,92 @@ public class LRUCache {
     }
 
     class Node {
+        
+        int val;
         int key;
-        int value;
-        Node prev;
-        Node next;
+        Node next ;
+        Node prev ;
 
-        public Node(int key, int value) {
+
+        public  Node(int key , int val){
             this.key = key;
-            this.value = value;
-            prev = next = null;
+            this.val = val;
+            next =  prev = null;
         }
     }
 
-    private final int capacity;
-    private final Map<Integer, Node> map;
-    private final Node head;
-    private final Node tail;
+    private int Capacity;
+    private Node head;
+    private Node tail;
+    private HashMap<Integer, Node> map ;
 
-    public LRUCache(int capacity) {
-        this.capacity = capacity;
+    public LRUCache(int capacity){
+
+        this.Capacity = capacity;
+
         map = new HashMap<>();
 
         head = new Node(-1, -1);
-        tail = new Node(-1, -1);
+        tail = new Node(-1,-1);
+
 
         head.next = tail;
         tail.prev = head;
     }
 
-    private void addFirst(Node node) {
 
-        Node oldNode = head.next;
-        node.next = oldNode;
+    public void addFirst(Node node){
+        Node  old = head.next;
+        node.next = old;
         node.prev = head;
-
-        oldNode.prev = node;
+        old.prev = node;
         head.next = node;
     }
 
-    private void remove(Node node) {
+    public void remove(Node node){
         Node prevNode = node.prev;
         Node nextNode = node.next;
         prevNode.next = nextNode;
         nextNode.prev = prevNode;
     }
 
-    public int get(int key) {
-        if (!map.containsKey(key)) {
-            return -1;
-        }
+    public void put(int key , int val){
+        if(map.containsKey(key)){
 
-        Node node = map.get(key);
-        // this node was recently used;
-        remove(node);
-        addFirst(node);
-
-        return node.value;
-    }
-
-    public void put(int key, int value) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-
-            node.value = value;
-
-            // It Becomes most Recently used;
-
+           Node node = map.get(key);
+           node.val = val;
             remove(node);
             addFirst(node);
-
+        
             return;
         }
 
-        Node newNode = new Node(key, value);
-        map.put(key, newNode);
-
+        Node newNode = new Node(key, val);
+        map.put(key , newNode);
         addFirst(newNode);
 
-        // if capacity reached Remove Least Recently Used
-
-        if (map.size() > capacity) {
+        if(map.size()>=Capacity){
             Node lru = tail.prev;
             remove(lru);
             map.remove(lru.key);
         }
+
     }
+
+
+    public  int get(int key){
+        if(!map.containsKey(key)){
+            return -1;
+        }
+
+        Node node = map.get(key);
+        remove(node);
+        addFirst(node);
+
+        return node.val;
+    }
+
+  
 }
 
 /*
