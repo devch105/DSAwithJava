@@ -1,4 +1,4 @@
-package Leetcode.POTD.Feb.Leetcode;
+package POTD.Feb;
 
 public class P_1542 {
     public  static  int numOfSubarrays(int[] arr) {

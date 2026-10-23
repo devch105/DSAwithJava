@@ -1,4 +1,4 @@
-vipackage algorithimPatterns.TwoPointers;
+package algorithimPatterns.TwoPointers;
 
 public class ThreeSumClosest {
 

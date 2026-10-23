@@ -1,4 +1,3 @@
-package Leetcode;
 
 public class P_1863 {
     // Backtracking and Recursion

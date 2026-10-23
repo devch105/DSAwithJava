@@ -6,7 +6,7 @@ public class P_543 {
     public static void main(String[] args) {
          
         TreeNode root = new TreeNode();
-        root = root.buildTree();
+        root = root.BuildTree(root.tempArr);
         root.printTree(root);
         height(root);
         System.out.println("Diameter : "+diameter);

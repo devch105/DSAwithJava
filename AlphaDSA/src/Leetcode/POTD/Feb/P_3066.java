@@ -1,4 +1,4 @@
-package Leetcode.POTD.Feb.Leetcode;
+package POTD.Feb;
 import java.util.PriorityQueue;
 
 public class P_3066 {

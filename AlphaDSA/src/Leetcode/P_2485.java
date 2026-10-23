@@ -1,4 +1,3 @@
-package Leetcode;
 
 public class P_2485 {
     public static int pivotInteger(int n) {

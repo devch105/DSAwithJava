@@ -9,7 +9,7 @@ public class P_199 {
 
     public static void main(String[] args) {
         TreeNode rNode = new TreeNode();
-        rNode = rNode.buildTree();
+        rNode = rNode.BuildTree(rNode.tempArr);
 
         rightView(rNode, 1);
 

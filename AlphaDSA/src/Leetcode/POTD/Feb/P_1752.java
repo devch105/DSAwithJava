@@ -1,4 +1,4 @@
-package Leetcode.POTD.Feb.Leetcode;
+package POTD.Feb;
 
 public class P_1752 {
     public static boolean check(int[] nums) {

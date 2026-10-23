@@ -32,8 +32,11 @@ public class TreeNode {
         printTree(root.right);
     }
 
-    public TreeNode createTree() {
-        int arr[] = { 4, 2, 7, 1, 3, 6, 9 };
+     int[] tempArr = { 4, 2, 7, 1, 3, 6, 9 };
+
+
+    public TreeNode createTree(int arr[]) {
+       
 
         TreeNode root = BuildTree(arr);
         return root;
@@ -113,4 +116,6 @@ public class TreeNode {
 
         return root;
     }
+
+   
 }

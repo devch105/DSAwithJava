@@ -3,7 +3,7 @@ package algorithimPatterns.HashMap_HashSet;
 
 import java.util.LinkedList;
 import java.util.List;
-package algorithimPatterns.HashMap_HashSet;
+
 
 import java.util.LinkedList;
 import java.util.List;

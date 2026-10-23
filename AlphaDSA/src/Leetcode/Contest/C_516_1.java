@@ -1,4 +1,4 @@
-package Leetcode.Contest;
+package Contest;
 
 public class C_516_1 {
     public static void main(String[] args) {

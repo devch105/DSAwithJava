@@ -1,4 +1,4 @@
-package Leetcode.POTD;
+package POTD;
 
 public class Maxchunks_769 {
     public  static  int maxChunksToSorted(int[] arr) {
