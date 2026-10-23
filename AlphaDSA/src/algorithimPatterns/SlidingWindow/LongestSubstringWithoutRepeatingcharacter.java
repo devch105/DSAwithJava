@@ -10,19 +10,19 @@ public class LongestSubstringWithoutRepeatingcharacter {
 
     }
     public static int LongestSubstringwithoutRepeatingcharacter(String s) {
-        HashMap<Character, Integer> map = new HashMap<>();
-        int max = 0;
-        int left = 0;
-        for(int i=0; i<s.length(); i++){
-            if(map.containsKey(s.charAt(i)) && map.get(s.charAt(i)) >=left){
-                left= map.get(s.charAt(i))+1;
-
-            }
-                map.put(s.charAt(i), i);
-                max = Math.max(max, i-left+1);
+       int left =0 , right =0, max=-1;
+       HashMap<Character, Integer> map = new HashMap<>();
+       while(right<s.length()){
+        char ch = s.charAt(right);
+        if(map.containsKey(ch) && map.get(ch)>=left){
+            left = map.get(ch)+1;
 
         }
-        return max;
+        map.put(ch,right);
+        max = Math.max(max, right-left+1);
+        right++;
+       }
+       return max;
     }
 
 

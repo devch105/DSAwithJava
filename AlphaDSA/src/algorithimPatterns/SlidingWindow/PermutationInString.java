@@ -1,12 +1,14 @@
 package algorithimPatterns.SlidingWindow;
 
 import java.util.HashMap;
+import java.util.Arrays;
 
 public class PermutationInString {
     static void main() {
 
        String s1 = "ab", s2 = "eidbaooo";
         System.out.println("Permutation Exist : "+checkInclusion(s1,s2));
+        System.out.println("New Method : "+check(s1,s2));
     }
 
 
@@ -50,5 +52,39 @@ public class PermutationInString {
         }
 
         return false;
+    }
+
+    public static boolean check(String s1 , String s2){
+        if(s2.length() > s1.length()){
+            return false;
+        }
+
+        int exp_freq [] = new int[26];
+        
+        for(char c : s2.toCharArray()){
+            exp_freq[c-'a']++;
+        }
+
+        int left=0; 
+        int right=0;
+        int win_freq [] = new int[26];
+
+        while(right < s1.length()){
+            char ch = s1.charAt(right);
+             win_freq[ch-'a']++;
+
+             if(right-left+1 == s2.length()){
+               if(Arrays.equals(exp_freq,win_freq)){
+                return true;
+               }
+
+               char sh = s1.charAt(left);
+               win_freq[sh-'a']--;
+               left++;
+             }
+             right++;
+        }
+        return false;
+
     }
 }
