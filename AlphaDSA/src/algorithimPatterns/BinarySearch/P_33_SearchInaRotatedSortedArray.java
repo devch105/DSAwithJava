@@ -6,8 +6,42 @@ public class P_33_SearchInaRotatedSortedArray {
 
         int arr [] = {4,5,6,7,0,1,2};
 
-        System.out.println("Answer : "+searchInRotatedSortedArray(arr,0));
+        System.out.println("Answer : "+searchInRotatedSortedArray(arr,5));
+
+        System.out.println("Answer : "+search(arr, 5));
     }
+
+    public static  int search(int arr[], int target){
+        int left =0, right=arr.length-1;
+
+        while(left < right){
+            int mid = left + (right-left)/2;
+           
+            if(arr[mid]==target){
+                return  mid;
+            }
+           else if(arr[mid] > arr[right]){
+                 if(target>arr[mid] && target<arr[right]){
+                    left = mid;
+                 }else{
+                    right=mid-1;
+                 }
+            }else{
+
+                if(arr[left]<=target && target<arr[mid]){
+                    left=mid+1;
+                }else{
+                    right=mid-1;
+                }
+
+            }
+        }
+        return arr[left]==target? left:-1;
+    }
+
+
+
+
 
     public static int searchInRotatedSortedArray(int arr [] , int target){
          int pivotIndex = findMin(arr);
@@ -38,7 +72,6 @@ public class P_33_SearchInaRotatedSortedArray {
         }
         return right;
     }
-
     public  static int binarySearch(int arr [] , int target, int left , int right){
         while(left<=right){
             int mid=left+(right-left);
