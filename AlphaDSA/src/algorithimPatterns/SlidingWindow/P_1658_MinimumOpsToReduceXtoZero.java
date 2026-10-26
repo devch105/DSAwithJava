@@ -6,30 +6,36 @@ public class P_1658_MinimumOpsToReduceXtoZero {
         int x = 5;
         System.out.println(minOperations(nums, x));
     }
-    public static int minOperations(int[] nums, int x) {
-      HashMap<Integer,Integer> map = new HashMap<>();
-      int sum=0;
-      map.put(0,-1);
-      for(int i=0; i<nums.length; i++){
-          sum+=nums[i];
-          map.put(sum,i);
-      }
-      if(sum<x)return -1;
-      int remainingSum = sum-x;
-      sum=0;
-      
-      int maxLength = Integer.MIN_VALUE;
-      
-      for(int i=0; i<nums.length; i++){
-        sum += nums[i];
-        int findSum  = sum-remainingSum;
-        if(map.containsKey(findSum)){
-            int index = map.get(findSum);
-            maxLength = Math.max(maxLength,i-index);
+    public static  int minOperations(int[] nums, int x) {
+        int totalSum = 0;
+        for(int n : nums){
+            totalSum +=n;
         }
-      }
+        int Find = totalSum -x;
+        if(Find<0){
+            return -1;
+        }
+        int findLen = FindLen(nums,Find);
+        return (findLen == Integer.MIN_VALUE) ? -1 : nums.length-findLen;
+    }
 
-      return maxLength==Integer.MIN_VALUE?-1:nums.length-maxLength;
+    public static  int FindLen(int nums[] , int  x){
+        int left =0;
+        int right =0;
+        int max = Integer.MIN_VALUE;
+        int currSum =0;
+        while(right < nums.length){
+            currSum +=nums[right];
 
+            while(currSum > x && left < nums.length){
+                currSum -= nums[left];
+                left++;
+            }
+           if(currSum == x){
+             max = Math.max(max, right-left+1);
+           }
+            right++;
+        }
+        return max;
     }
 }
