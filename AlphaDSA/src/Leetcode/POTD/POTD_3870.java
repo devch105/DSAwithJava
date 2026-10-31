@@ -1,4 +1,4 @@
-package Practice;
+package Leetcode.POTD;
 
 import java.util.Scanner;
 
