@@ -1,7 +1,4 @@
-package LinkedList.Practice;
-
-import LinkedList.Linkedlist1;
-
+package Practice;
 public class PartitionList {
     public class Node {
         int data;
@@ -13,8 +10,7 @@ public class PartitionList {
         }
     }
 
-    public static Linkedlist1.Node head;
-    public static Linkedlist1.Node tail;
+   
     public static int len = 0;
 
     //           1-> 4-> 3 -> 2 -> 5 ->2
