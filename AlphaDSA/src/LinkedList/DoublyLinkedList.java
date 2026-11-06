@@ -1,4 +1,4 @@
-
+package LinkedList;
 public class DoublyLinkedList {
     public static DNode head;
     public static DNode tail;
