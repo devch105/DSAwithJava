@@ -1,89 +1,74 @@
+
 package Trees.LeetcodeQuestions;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class TreeNode {
+
     int val;
     TreeNode left;
     TreeNode right;
 
-    TreeNode() {
+    public TreeNode() {
     }
 
-    TreeNode(int val) {
+    public TreeNode(int val) {
         this.val = val;
     }
 
-    TreeNode(int val, TreeNode left, TreeNode right) {
+    public TreeNode(int val, TreeNode left, TreeNode right) {
         this.val = val;
         this.left = left;
         this.right = right;
     }
 
-    public void printTree(TreeNode root) {
-        if (root == null) {
-            return;
-        }
+    public void printPreorder(TreeNode root) {
+        if (root == null) return;
 
         System.out.print(root.val + " ");
-
-        printTree(root.left);
-        printTree(root.right);
+        printPreorder(root.left);
+        printPreorder(root.right);
     }
 
-     int[] tempArr = { 4, 2, 7, 1, 3, 6, 9 };
+    // Build a binary tree from level-order representation.
+    // -1 represents a null node.
+    public TreeNode buildTree(int[] arr) {
 
+        if (arr == null || arr.length == 0 || arr[0] == -1) {
+            return null;
+        }
 
-    public TreeNode createTree(int arr[]) {
-       
+        TreeNode root = new TreeNode(arr[0]);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
 
-        TreeNode root = BuildTree(arr);
+        int i = 1;
+
+        while (i < arr.length && !queue.isEmpty()) {
+
+            TreeNode current = queue.poll();
+
+            if (i < arr.length && arr[i] != -1) {
+                current.left = new TreeNode(arr[i]);
+                queue.offer(current.left);
+            }
+            i++;
+
+            if (i < arr.length && arr[i] != -1) {
+                current.right = new TreeNode(arr[i]);
+                queue.offer(current.right);
+            }
+            i++;
+        }
+
         return root;
     }
 
-    int indx = -1;
-
-    public TreeNode BuildTree(int[] arr) {
-
-    if (arr == null || arr.length == 0 || arr[0] == -1) {
-        return null;
-    }
-
-    TreeNode root = new TreeNode(arr[0]);
-
-    Queue<TreeNode> queue = new LinkedList<>();
-    queue.add(root);
-
-    int i = 1;
-
-    while (i < arr.length) {
-
-        TreeNode current = queue.poll();
-
-        // Left child
-        if (i < arr.length && arr[i] != -1) {
-            current.left = new TreeNode(arr[i]);
-            queue.add(current.left);
-        }
-        i++;
-
-        // Right child
-        if (i < arr.length && arr[i] != -1) {
-            current.right = new TreeNode(arr[i]);
-            queue.add(current.right);
-        }
-        i++;
-    }
-
-    return root;
-}
-    // BINARY SEARCH TREE
+    // Binary Search Tree
 
     public TreeNode buildBST() {
-
-        int[] arr = { 4, 2, 7, 1, 3, 6, 9 };
-
+        int[] arr = {4, 2, 7, 1, 3, 6, 9};
         return createBST(arr);
     }
 
@@ -110,12 +95,10 @@ public class TreeNode {
 
         if (value < root.val) {
             root.left = insertBST(root.left, value);
-        } else {
+        } else if (value > root.val) {
             root.right = insertBST(root.right, value);
         }
 
         return root;
     }
-
-   
 }
