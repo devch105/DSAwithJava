@@ -8,7 +8,7 @@ public class P_297 {
     public static void main(String[] args) {
 
         int arr[] = { 1, 2, -1, -1, 3, 4, -1, -1, 5, -1, -1 };
-        TreeNode root = new TreeNode().BuildTree(arr);
+        TreeNode root = new TreeNode().buildTree(arr);
         System.out.println("Before Serialization");
         System.out.println("\n");
         String data = serialize(root);
@@ -16,7 +16,7 @@ public class P_297 {
         TreeNode root2 = deserialize(data);
         System.out.println("\n After Serialization : ");
         System.out.println();
-        root.printTree(root2);
+        root.printPreorder(root2);
 
     }
 
