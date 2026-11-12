@@ -53,7 +53,7 @@ public class P_133 {
         Node node1 = new Node(1);
         Node node2 = new Node(2);
         Node node3 = new Node(3);
-        Node node4 = new Node(4);
+        Node node4 = new Node(5);
 
         // Build the graph: 1--2, 1--4, 2--3, 3--4
         node1.neighbors.addAll(Arrays.asList(node2, node4));
