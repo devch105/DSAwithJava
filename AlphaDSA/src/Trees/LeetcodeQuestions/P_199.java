@@ -9,7 +9,7 @@ public class P_199 {
 
     public static void main(String[] args) {
         TreeNode rNode = new TreeNode();
-        rNode = rNode.BuildTree(rNode.tempArr);
+        rNode = rNode.buildTree(new int[] { 1, 2, 3, -1, 5, -1, 4 });
 
         rightView(rNode, 1);
 
@@ -19,7 +19,7 @@ public class P_199 {
         }
         System.out.println("List : " + list);
 
-        System.out.println("Map : "+map.toString());
+        System.out.println("Map : " + map.toString());
     }
 
     public static void rightView(TreeNode root, int level) {
@@ -28,7 +28,6 @@ public class P_199 {
             return;
         }
 
-       
         if (!map.containsKey(level)) {
             map.put(level, root.val);
         }

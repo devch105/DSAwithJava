@@ -1,26 +1,28 @@
 package Trees.LeetcodeQuestions;
 
 public class P_543 {
-    
-    static int diameter =0;
+
+    static int diameter = 0;
+
     public static void main(String[] args) {
-         
+
         TreeNode root = new TreeNode();
-        root = root.BuildTree(root.tempArr);
-        root.printTree(root);
+        root = root.buildTree(new int[] { 1, 2, 3, 4, 5 });
+        root.printPreorder(root);
         height(root);
-        System.out.println("Diameter : "+diameter);
+        System.out.println("Diameter : " + diameter);
 
     }
 
-    public static int height (TreeNode root){
-        if(root == null) return 0;
+    public static int height(TreeNode root) {
+        if (root == null)
+            return 0;
 
         int left = height(root.left);
         int right = height(root.right);
-         
-        diameter = Math.max(diameter, left+right);
-        int ht = Math.max(left, right)+1;
+
+        diameter = Math.max(diameter, left + right);
+        int ht = Math.max(left, right) + 1;
 
         return ht;
     }

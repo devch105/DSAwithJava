@@ -9,7 +9,7 @@ public class P_102 {
 
     public static void main(String[] args) {
         TreeNode rNode = new TreeNode();
-        rNode = rNode.BuildTree(rNode.tempArr);
+        rNode = rNode.buildTree(new int[] { 3, 9, 20, -1, -1, 15, 7 });
 
         List<List<Integer>> reList = levelOrder(rNode);
         System.out.println("Answer : " + reList);
